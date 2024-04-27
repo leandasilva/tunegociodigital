@@ -1,37 +1,46 @@
-import {
-  UserGroupIcon,
-  HomeIcon,
-  DocumentDuplicateIcon,
-} from '@heroicons/react/24/outline';
+import { UserGroupIcon,UserCircleIcon, HomeIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline';
+import { link } from 'fs';
+import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
 const links = [
-  { name: 'Home', href: '/dashboard', icon: HomeIcon },
-  {
-    name: 'Invoices',
-    href: '/dashboard/invoices',
-    icon: DocumentDuplicateIcon,
-  },
-  { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
+  { name: 'Mis Datos', href: '/dashboard/administrador', icon: UserCircleIcon },
+  { name: 'Password Usuario', href: '/dashboard/passusuario', icon: DocumentDuplicateIcon},
+  { name: 'Password Cajero', href: '/dashboard/passcajero', icon: DocumentDuplicateIcon},
+  { name: 'Usuarios', href: '/dashboard/usuarios', icon: UserGroupIcon },
+  { name: 'Cajeros', href: '/dashboard/cajeros', icon: UserGroupIcon },
 ];
 
 export default function NavLinks() {
+  const router = useRouter();
+
+
+  // Verificar si el usuario está autenticado (por ejemplo, revisando el localStorage)
+  const isAuthenticated = localStorage.getItem('token'); // Ajusta esto según cómo almacenes el estado de autenticación
+
+  const filteredLinks =  isAuthenticated ? links : links.filter(link => link.name === 'Home');
+  
+
+  
   return (
     <>
-      {links.map((link) => {
+      {filteredLinks.map((link) => {
         const LinkIcon = link.icon;
         return (
-          <a
+          <Link
             key={link.name}
             href={link.href}
-            className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3"
+            className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-8 md:px-3"
           >
             <LinkIcon className="w-6" />
             <p className="hidden md:block">{link.name}</p>
-          </a>
+          </Link>
         );
       })}
     </>
   );
 }
+
+
+

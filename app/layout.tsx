@@ -1,11 +1,21 @@
+'use client'
+
+import React from 'react';
+import '@/app/ui/global.css';
+import client from './lib/apollo';
+import { ApolloProvider } from '@apollo/client';
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
+   <ApolloProvider client={client}>
     <html lang="en">
+        <title>Tu Neg Dig</title>
       <body>{children}</body>
     </html>
+   </ApolloProvider>
   );
 }
