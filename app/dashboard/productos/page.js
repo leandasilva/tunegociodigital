@@ -3,7 +3,7 @@
 import Producto from '@/app/lib/producto';
 import { gql, useQuery } from '@apollo/client';
 import Link from 'next/link';
-import { useState} from 'react';
+import { useState,useEffect} from 'react';
 import { lusitana } from '@/app/ui/fonts';
 import { Button } from '@/app/ui/button';
 
@@ -25,9 +25,15 @@ query ObtenerProductosUsuario {
 const Productos = () => {
 
   // Consultar los productos
-  const { data, loading, error } = useQuery(OBTENER_PRODUCTOS)
+  const { data, loading, error,refetch } = useQuery(OBTENER_PRODUCTOS)
 
   const [searchTerm, setSearchTerm] = useState('');
+
+
+  useEffect(() => {
+    refetch();
+  }, []); // Esto ejecutará refetch() solo una vez, cuando el componente se monte
+
 
   // console.log(data)
   // console.log(loading)

@@ -118,6 +118,7 @@ const EditarProducto = ({params}) => {
             // Redirgir hacia productos
             router.push('/dashboard/productos')
 
+
             // Mostrar una alerta
             Swal.fire(
                 'Actualizado',
@@ -272,7 +273,7 @@ const EditarProducto = ({params}) => {
                                             <option value="ACTIVO">ACTIVO</option>
                                             <option value="INACTIVO">INACTIVO</option>
                                         </select> 
-                                    </div>
+                            </div>
 
                                     { props.touched.estado && props.errors.estado ? (
                                         <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >

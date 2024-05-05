@@ -143,8 +143,8 @@ export default function SideNav() {
                     className="dark:hidden rounded-lg "
                     src="/logo.jpg"
                     alt="Logo"
-                    width={220}
-                    height={13}
+                    width={230}
+                    height={5}
                   />
             <div className="flex flex-col space-y-2">
               {navLinksComponent}

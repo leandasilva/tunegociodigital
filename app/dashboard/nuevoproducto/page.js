@@ -217,14 +217,15 @@ const NuevoProducto = () => {
                                     Estado
                                 </label>
 
-                                <input
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="estado"
-                                    type="text"
-                                    placeholder="Estado Usuario"
-                                    value={formik.values.estado}
-                                    onChange={formik.handleChange}
-                                />
+                                 <select
+                                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            id="estado"
+                                            onChange={formik.handleChange}
+                                            value={formik.values.estado}
+                                        >
+                                            <option value="ACTIVO">ACTIVO</option>
+                                            <option value="INACTIVO">INACTIVO</option>
+                                        </select> 
                             </div>
 
                             { formik.touched.estado && formik.errors.estado ? (
