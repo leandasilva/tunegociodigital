@@ -59,7 +59,7 @@ export default function Page() {
       const balanceGeneradoHoy = localStorage.getItem('balanceGeneradoHoy');
   
       // Si no se generó balance hoy y es el primer día del mes
-      if (!balanceGeneradoHoy && currentDay === 1) { // Actualizado
+      if (!balanceGeneradoHoy && currentDay === 10) { // Actualizado
         Swal.fire({
           title: '¿Generar nuevo balance?',
           text: 'El balance solamente lo puede generar una sola vez en el dia!!',
