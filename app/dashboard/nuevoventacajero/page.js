@@ -8,37 +8,39 @@ import { Button } from '@/app/ui/button';
 import { lusitana } from '@/app/ui/fonts';
 
 const NUEVO_VENTA = gql`
-  mutation NuevoVentaCajero($input: VentaCajeroInput) {
-    nuevoVentaCajero(input: $input) {
+mutation NuevoVentaCajero($input: VentaCajeroInput) {
+  nuevoVentaCajero(input: $input) {
+    id
+    clientes {
       id
-      clientes {
-        id
-        razonsocial
-        total
-      }
-      totalVenta
-      cajero
-      user
-      creado
-    }
-  }
-`;
-
-const OBTENER_CLIENTES_CAJERO = gql`
-  query ObtenerClientesCajero {
-    obtenerClientesCajero {
-      id
-      razonsocial
+      nombre
       total
     }
+    cajero
+    user
+    totalVenta
+    creado
   }
+}
+`;
+
+const OBTENER_RESUMEN_CAJERO = gql`
+query ObtenerResumen {
+  obtenerResumen {
+    id
+    nombre
+    total
+    cajero
+    cliente
+  }
+}
 `;
 
 const NuevoVentaCajero = () => {
   
   const router = useRouter();
 
-  const { loading, error, data, refetch } = useQuery(OBTENER_CLIENTES_CAJERO);
+  const { loading, error, data, refetch } = useQuery(OBTENER_RESUMEN_CAJERO);
   
   const [nuevoVentaCajeroMutation] = useMutation(NUEVO_VENTA);
   const [showCerrarCaja, setShowCerrarCaja] = useState(false); // Estado para controlar la visibilidad del botón
@@ -47,7 +49,7 @@ const NuevoVentaCajero = () => {
   useEffect(() => {
     if (data) {
       // Calcular el total de ventas al obtener los datos de los clientes
-      const ventasTotales = data.obtenerClientesCajero.reduce((total, cliente) => total + cliente.total, 0);
+      const ventasTotales = data.obtenerResumen.reduce((total, cliente) => total + cliente.total, 0);
       setTotalVentas(ventasTotales);
     }
   }, [data]);
@@ -68,10 +70,10 @@ const NuevoVentaCajero = () => {
           await nuevoVentaCajeroMutation({
             variables: {
               input: {
-                clientes: data.obtenerClientesCajero.map(cliente => ({
-                  id: cliente.id,
-                  razonsocial: cliente.razonsocial,
-                  total: cliente.total
+                clientes: data.obtenerResumen.map(resumen => ({
+                  id: resumen.id,
+                  nombre: resumen.nombre,
+                  total: resumen.total
                 })),
                 totalVenta: totalVentas // Pasar el total de ventas como parte de la mutación
               }
@@ -103,9 +105,9 @@ const NuevoVentaCajero = () => {
     <div>
       <h2 className={`${lusitana.className} mt-5 mb-5 text-xl md:text-2xl`}>Cierre de Caja</h2>
       <h2 className={`${lusitana.className}text-gray-800 font-bold mt-2`}>Resumen de venta total de la jornada</h2>
-      {data.obtenerClientesCajero.map(articulo => (
+      {data.obtenerResumen.map(articulo => (
         <div key={articulo.id} className="mt-4">
-          <p className={`${lusitana.className}text-sm`}>Razon Social: {articulo.razonsocial} </p>
+          <p className={`${lusitana.className}text-sm`}>Razon Social: {articulo.nombre} </p>
           <p className="text-sm text-gray-600">Total: $ {articulo.total} </p>
         </div>
       ))}
@@ -113,7 +115,7 @@ const NuevoVentaCajero = () => {
       {showCerrarCaja && ( // Mostrar el botón de "Cerrar Caja" si showCerrarCaja es true
         <Button className="mt-5" onClick={NuevaVentadelCajero}>Cerrar Caja</Button>
       )}
-      <Button className="mt-5" onClick={handleRefresh}>Actualizar Clientes</Button>
+      <Button className="mt-5" onClick={handleRefresh}>Refrescar ventas</Button>
     </div>
   );
 };

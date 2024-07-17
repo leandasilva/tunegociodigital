@@ -29,6 +29,7 @@ query ObtenerPedidosCajeroPorFecha($fecha: String!) {
       }
       total
       cajero
+      nombre
       user
       creado
     }
@@ -38,7 +39,7 @@ query ObtenerPedidosCajeroPorFecha($fecha: String!) {
 const Pedido = ({pedido}) => {
 
 
-    const { id, total, cliente: { razonsocial, user },creado,cajero, cliente } = pedido;
+    const { id, total, cliente: { razonsocial, user },creado,cajero,nombre, cliente } = pedido;
    
 
     // Mutation para cambiar el estado de un pedido
@@ -92,14 +93,13 @@ const Pedido = ({pedido}) => {
             }
           })
     }
-  
 
     return ( 
         <div className={`border-green-500 border-t-4 mt-4 bg-white rounded-lg p-6 md:grid md:grid-cols-2 md:gap-4 shadow-lg`}>
             <div>
                 <p className={`${lusitana.className} text-md md:text-2xl`}>Cliente: {razonsocial} </p>
 
-                <p className={`${lusitana.className} text-md md:text-2xl`}>Cajero: {cajero} </p>
+                <p className={`${lusitana.className} text-md md:text-2xl`}>Cajero: {nombre} </p>
 
                 <p className="text-gray-800 mt-3 font-bold ">Fecha de facturación: {creado}</p>
             </div>

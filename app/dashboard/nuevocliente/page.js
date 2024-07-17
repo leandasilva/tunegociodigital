@@ -16,7 +16,6 @@ mutation NuevoCliente($input: ClienteInput) {
       email
       telefono
       dni
-      total
       totalGral
       estado
       creado
@@ -24,6 +23,7 @@ mutation NuevoCliente($input: ClienteInput) {
     }
   }
 `;
+
 
 
 const OBTENER_CLIENTES_USUARIO = gql`
@@ -36,7 +36,6 @@ query ObtenerClientesUsuario {
       estado
       dni
       telefono
-      total
       totalGral
       creado
       user
@@ -86,7 +85,8 @@ const NuevoCliente = () => {
             try {
                 const {data} = await nuevoCliente({ variables: { input: values } });
                 console.log(data.nuevoCliente);
-                
+
+
                 // Usuario creado correctamente
               guardarMensaje(`Se creo correctamente el Cliente: ${data.nuevoCliente.razonsocial} `);
 

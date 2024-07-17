@@ -12,13 +12,14 @@ const OBTENER_VENTAS = gql`
 query ObtenerVentaUsuarioPorCajero($cajero: String!) {
   obtenerVentaUsuarioPorCajero(cajero: $cajero) {
     id
+    cajero
     clientes {
-      razonsocial
+      id
+      nombre
       total
     }
-    totalVenta
-    cajero
     user
+    totalVenta
     creado
   }
 }

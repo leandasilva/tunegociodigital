@@ -6,11 +6,11 @@ import { gql, useQuery } from '@apollo/client';
 import PedidoContext from '@/app/ui/context/pedidocontext';
 
 const OBTENER_CLIENTES_CAJERO = gql`
-query ObtenerClientesCajero {
-    obtenerClientesCajero {
+query ObtenerClientesCajeroPedido {
+    obtenerClientesCajeroPedido {
       id
       razonsocial
-      total
+      totalGral
       estado
       user
     }
@@ -45,9 +45,9 @@ const AsignarCliente = () => {
     // Resultados de la consulta
     if(loading) return null;
 
-    const { obtenerClientesCajero } = data;
+    const { obtenerClientesCajeroPedido } = data;
 
-    const clientesFiltrados = obtenerClientesCajero.filter(
+    const clientesFiltrados = obtenerClientesCajeroPedido.filter(
         (cliente) => cliente.estado === 'ACTIVO'
       );
 

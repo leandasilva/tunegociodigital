@@ -13,7 +13,7 @@ query ObtenerVentaUsuarioPorFecha($fecha: String!) {
   obtenerVentaUsuarioPorFecha(fecha: $fecha) {
     id
     clientes {
-      razonsocial
+      nombre
       total
     }
     totalVenta
@@ -79,7 +79,7 @@ const VentasCajero = () => {
                 <Text style={{ fontSize: 10 }}>Cajero: {ventacajero.cajero}</Text>
                 {ventacajero.clientes.map((clientes) => (
                 <View key={clientes.id} >
-                <Text style={{ fontSize: 10 }}>Razon Social: {clientes.razonsocial}</Text>
+                <Text style={{ fontSize: 10 }}>Razon Social: {clientes.nombre}</Text>
                 <Text style={{ fontSize: 10 }}>Total: ${clientes.total}</Text>
                 </View>
                 ))}
@@ -100,7 +100,7 @@ const VentasCajero = () => {
               <Text style={{ fontSize: 10 }}>Cajero: {ventacajero.cajero}</Text>
               {ventacajero.clientes.map((clientes) => (
               <View key={clientes.id} >
-              <Text style={{ fontSize: 10 }}>Razon Social: {clientes.razonsocial}</Text>
+              <Text style={{ fontSize: 10 }}>Razon Social: {clientes.nombre}</Text>
               <Text style={{ fontSize: 10 }}>Total: ${clientes.total}</Text>
               </View>
               ))}
@@ -121,7 +121,7 @@ const VentasCajero = () => {
                 <Text style={{ fontSize: 10 }}>Cajero: {ventacajero.cajero}</Text>
                 {ventacajero.clientes.map((clientes) => (
                 <View key={clientes.id} >
-                <Text style={{ fontSize: 10 }}>Razon Social: {clientes.razonsocial}</Text>
+                <Text style={{ fontSize: 10 }}>Razon Social: {clientes.nombre}</Text>
                 <Text style={{ fontSize: 10 }}>Total: ${clientes.total}</Text>
                 </View>
                 ))}
