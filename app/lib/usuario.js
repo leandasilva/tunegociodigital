@@ -99,9 +99,6 @@ const Usuario = ({usuario}) => {
     return ( 
             <tr  className="group">
             <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">
-                        {usuario.id}
-             </td>
-            <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">
                         {usuario.nombre} {usuario.apellido}
              </td>
              <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">

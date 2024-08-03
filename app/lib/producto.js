@@ -93,7 +93,7 @@ const Producto = ({producto}) => {
     return ( 
         <tr>
             <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{producto.nombre} </td>
-            <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{producto.existencia} Cantidad</td>
+            <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{producto.existencia} Cantidades</td>
             <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">$ {producto.precio} </td>
             <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{producto.codigo}</td>
             <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{producto.estado}</td>

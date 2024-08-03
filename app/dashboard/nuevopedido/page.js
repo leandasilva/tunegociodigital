@@ -17,16 +17,30 @@ mutation NuevoPedido($input: PedidoInput) {
     id
     pedido {
       id
+      cantidad
       nombre
       precio
-      cantidad
+      codigo
     }
     total
+    nombre
     cajero
     user
+    creado
   }
 }
 `;
+
+
+const NUEVO_RESUMEN = gql`
+mutation NuevoResumen($input: ResumenInput) {
+  nuevoResumen(input: $input) {
+    id
+    nombre
+    total
+    cliente
+  }
+}`;
 
 const OBTENER_PEDIDOS = gql`
   query ObtenerPedidosCajeroPorFecha($fecha: String!) {
@@ -35,6 +49,7 @@ const OBTENER_PEDIDOS = gql`
       cliente {
         id
         razonsocial
+        totalGral
         user
       }
       pedido {
@@ -63,11 +78,11 @@ query ObtenerProductosCajero {
 `;
 
 const OBTENER_CLIENTES_USUARIO = gql`
-  query ObtenerClientesCajero {
-    obtenerClientesCajero {
+  query ObtenerClientesCajeroPedido {
+    obtenerClientesCajeroPedido {
       id
       razonsocial
-      total
+      totalGral
     }
   }
 `;
@@ -103,6 +118,8 @@ const NuevoPedido = () => {
 
   const [nuevoPedido] = useMutation(NUEVO_PEDIDO);
 
+  const [nuevoResumen] = useMutation(NUEVO_RESUMEN);
+
    // Query para obtener productos
   const { data: productosData, loading: productosLoading } = useQuery(
     OBTENER_PRODUCTOS
@@ -116,7 +133,7 @@ const NuevoPedido = () => {
     client.writeQuery({
       query: OBTENER_CLIENTES_USUARIO,
       data: {
-        obtenerClientesCajero: nuevosClientes,
+        obtenerClientesCajeroPedido: nuevosClientes,
       },
     });
   };
@@ -138,6 +155,19 @@ const NuevoPedido = () => {
     const pedido = productos.map(({ __typename, existencia, ...producto }) => producto);
 
     try {
+      try {
+        await nuevoResumen({
+          variables: {
+            input: {
+              nombre: cliente.razonsocial,
+              cliente: id
+            }
+          }
+        });
+      } catch (error) {
+        console.log('Error en nuevoResumen:', error.message);
+      }
+
       await nuevoPedido({
         variables: {
           input: {
@@ -182,26 +212,11 @@ const NuevoPedido = () => {
         actualizarExistenciaProductos(nuevosProductos);
       }
 
-        // Actualizar la existencia de productos después de crear un nuevo pedido
-        if (clientedata) {
-          const nuevosClientes = clientedata.obtenerClientesCajero.map((cliente) => {
-            const pedidoCliente = pedido.find((c) => c.id === cliente.id);
-            if (pedidoCliente) {
-              return {
-                ...cliente,
-                total: cliente.total + pedidoCliente.total,
-              };
-            }
-            return cliente;
-          });
-          actualizarTotalCliente(nuevosClientes);
-        }
-
       // Redireccionar
       router.replace('/dashboard/pedidos');
     } catch (error) {
+      console.log(error.message);
       setMensaje(error.message.replace('GraphQL error: ', ''));
-
       setTimeout(() => {
         setMensaje(null);
       }, 2000);

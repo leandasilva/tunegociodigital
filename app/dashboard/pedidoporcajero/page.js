@@ -8,8 +8,8 @@ import PedidoPorFecha from '@/app/lib/pedidoporfecha';
 import {Button} from '@/app/ui/button';
 
 const OBTENER_PEDIDOS = gql`
-  query ObtenerPedidosUsuarioPorCajero($cajero: String!) {
-    obtenerPedidosUsuarioPorCajero(cajero: $cajero) {
+  query ObtenerPedidosUsuarioPorCajero($nombre: String!) {
+    obtenerPedidosUsuarioPorCajero(nombre: $nombre) {
       id
       cliente {
         id
@@ -23,6 +23,7 @@ const OBTENER_PEDIDOS = gql`
       }
       total
       cajero
+      nombre
       user
       creado
     }
@@ -67,14 +68,14 @@ const PedidosPorCajero = () => {
     refetch(); // Esta función refresca los pedidos haciendo una nueva consulta al servidor
   };
 
-  const [cajero, setCajero] = useState("");
+  const [nombre, setCajero] = useState("");
   
   
   const { data: cajerosData, loading: cajerosLoading, error: cajerosError } = useQuery(OBTENER_CAJEROS);
 
   
   const { data, loading, error, refetch } = useQuery(OBTENER_PEDIDOS, {
-    variables: { cajero},
+    variables: { nombre},
   });
 
   if (loading) return 'Cargando...';
@@ -146,7 +147,7 @@ const PedidosPorCajero = () => {
         <h1 className={`${lusitana.className} mt-5 mb-5 text-xl md:text-2xl`}>Ventas detalles por Cajero</h1>
         <div className="flex justify-between items-center"> {/* Nueva línea */}
         <select
-          value={cajero}
+          value={nombre}
           onChange={(e) => setCajero(e.target.value)}
           className="mt-3 border rounded-md flex mr-3"
         >

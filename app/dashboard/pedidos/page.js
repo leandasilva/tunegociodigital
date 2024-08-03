@@ -12,8 +12,7 @@ query ObtenerPedidosCajeroPorFecha($fecha: String!) {
     id
     cliente {
       id
-      razonsocial
-      total
+      razonsocial 
       user
     }
     pedido {
@@ -23,6 +22,7 @@ query ObtenerPedidosCajeroPorFecha($fecha: String!) {
     }
     total
     cajero
+    nombre
     user
     creado
   }
@@ -58,8 +58,8 @@ const Pedidos = () => {
 
 
   const { obtenerPedidosCajeroPorFecha } = data;
-
- 
+  
+  
   
   return (
     <div>

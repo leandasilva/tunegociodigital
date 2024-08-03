@@ -1,5 +1,4 @@
 import { UserGroupIcon,UserCircleIcon, HomeIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline';
-import { link } from 'fs';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -12,7 +11,7 @@ const links = [
   { name: 'Cajeros', href: '/dashboard/cajeros', icon: UserGroupIcon },
 ];
 
-export default function NavLinks() {
+const NavLinks = ({onNavClick}) => {
   const router = useRouter();
 
 
@@ -31,16 +30,19 @@ export default function NavLinks() {
           <Link
             key={link.name}
             href={link.href}
-            className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-8 md:px-3"
+            onClick={onNavClick}
+            className="flex h-[48px] w-full items-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600"
           >
             <LinkIcon className="w-6" />
-            <p className="hidden md:block">{link.name}</p>
+            <div >{link.name}</div>
           </Link>
         );
       })}
     </>
   );
 }
+
+export default NavLinks;
 
 
 

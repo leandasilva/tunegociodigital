@@ -25,7 +25,7 @@ query ObtenerCajeroUser($id: ID!) {
   `;
 
   const ACTUALIZAR_CAJERO = gql`
-  mutation ActualizarUsuarioCajero($id: ID!, $input: CajeroInp) {
+  mutation ActualizarUsuarioCajero($id: ID!, $input: CajeroInput) {
     actualizarUsuarioCajero(id: $id, input: $input) {
       id
       nombre

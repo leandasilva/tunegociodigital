@@ -30,6 +30,8 @@ mutation NuevoCajero($input: CajeroInput) {
       email
       empresa
       password
+      entrada
+      salida
       estado
       admin
       user

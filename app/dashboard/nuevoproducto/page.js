@@ -16,6 +16,7 @@ const NUEVO_PRODUCTO = gql`
             existencia
             precio
             codigo
+            estado
             user
         }
     }
@@ -29,6 +30,7 @@ query ObtenerProductosUsuario {
       precio
       existencia
       codigo
+      estado
       creado
       user
     }
@@ -62,8 +64,9 @@ const NuevoProducto = () => {
             nombre: '',
             existencia: '',
             precio: '',
-            codigo: ''
-        },
+            codigo: '',
+            estado: 'ACTIVO'
+        }, 
         validationSchema: Yup.object({
             nombre: Yup.string() 
                         .required('El nombre del producto es obligatorio'), 
@@ -212,28 +215,6 @@ const NuevoProducto = () => {
                                 </div>
                             ) : null  }
 
-                            <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="estado">
-                                    Estado
-                                </label>
-
-                                 <select
-                                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            id="estado"
-                                            onChange={formik.handleChange}
-                                            value={formik.values.estado}
-                                        >
-                                            <option value="ACTIVO">ACTIVO</option>
-                                            <option value="INACTIVO">INACTIVO</option>
-                                        </select> 
-                            </div>
-
-                            { formik.touched.estado && formik.errors.estado ? (
-                                <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
-                                    <p className="font-bold">Error</p>
-                                    <p>{formik.errors.estado}</p>
-                                </div>
-                            ) : null  }
 
                             <input
                                 type="submit"

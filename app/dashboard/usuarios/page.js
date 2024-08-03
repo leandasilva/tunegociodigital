@@ -67,11 +67,6 @@ const Usuarios = () => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                      <th
-                      scope="col" className="px-4 py-5 font-medium"
-                    >
-                     Id
-                    </th>
                     <th
                       scope="col" className="px-4 py-5 font-medium"
                     >

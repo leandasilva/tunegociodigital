@@ -28,15 +28,14 @@ query ObtenerCajero($id: ID!) {
 const ACTUALIZAR_CAJERO = gql`
 mutation ActualizarCajero($id: ID!, $input: CajeroInput) {
   actualizarCajero(id: $id, input: $input) {
-    id
-    nombre
-    email
-    empresa
-    entrada
-    salida
-    estado
-    user
-    admin
+      id
+      nombre
+      entrada
+      empresa
+      email
+      admin
+      estado
+      salida
   }
 }
 `;
@@ -82,7 +81,7 @@ const EditarCajero = ({params}) => {
     // Modifica el cliente en la BD
     const actualizarInfoCajero = async valores => {
 
-        const { nombre,email, empresa,entrada,salida, estado,user } = valores;
+        const { nombre,email, empresa,password,entrada,salida, estado,user } = valores;
 
        
         try {
@@ -93,10 +92,11 @@ const EditarCajero = ({params}) => {
                         nombre, 
                         email, 
                         empresa,
+                        password,
                         entrada,
                         salida,
                         estado,
-                        user        
+                        user   
                     }
                 }
             });

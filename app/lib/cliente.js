@@ -25,7 +25,6 @@ query ObtenerClientesUsuario {
       estado
       dni
       telefono
-      total
       totalGral
       creado
       user

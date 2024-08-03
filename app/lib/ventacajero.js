@@ -68,7 +68,7 @@ const VentaCajero = ({ventacajero,refetchVentaCajero}) => {
                 <h2 className={`${lusitana.className}text-gray-800 font-bold mt-2`}>Resumen</h2>
                 { ventacajero.clientes.map( (articulo) => (
                     <div key={articulo.id} className="mt-4">
-                        <p className="text-sm text-gray-600">Razon Social: {articulo.razonsocial} </p>
+                        <p className="text-sm text-gray-600">Razon Social: {articulo.nombre} </p>
                         <p className="text-sm text-gray-600">Total: $ {articulo.total} </p>
                     </div>
                 ) ) }

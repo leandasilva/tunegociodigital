@@ -5,7 +5,7 @@
     "dev": "next dev",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "start": "next start"
+    "start": "run dev"
   },
   "dependencies": {
     "@apollo/client": "^3.8.9",

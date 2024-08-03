@@ -4,6 +4,7 @@ import React from 'react';
 import '@/app/ui/global.css';
 import client from './lib/apollo';
 import { ApolloProvider } from '@apollo/client';
+import Navbar from './ui/navbar';
 
 export default function RootLayout({
   children,
@@ -14,7 +15,8 @@ export default function RootLayout({
    <ApolloProvider client={client}>
     <html lang="en">
         <title>Tu Neg Dig</title>
-      <body>{children}</body>
+      <body>
+        {children}</body>
     </html>
    </ApolloProvider>
   );
