@@ -22,7 +22,6 @@ const MEJORES_CLIENTES = gql`
         obtenerClientesUsuario {
             id
             razonsocial
-            total
             totalGral
             estado
             user
@@ -35,15 +34,15 @@ const OBTENER_VENTA = gql`
 query ObtenerVentaUsuario {
   obtenerVentaUsuario {
     id
+    cajero
     clientes {
       id
-      razonsocial
+      nombre
       total
     }
-    totalVenta
-    cajero
-    creado
     user
+    totalVenta
+    creado
   }
 }
 `;
