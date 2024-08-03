@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     "app/lib/placeholder-data.js",
     "scripts/seed.js"
-, "app/_app.js", "app/dashboard/nuevousuario/page.tsx", "app/dashboard/balance/page.js", "app/ui/iniciosesion.js" ],
+, "app/_app.js", "app/dashboard/nuevousuario/page.tsx", "app/dashboard/balance/page.js", "app/ui/iniciosesion.js", "app/ui/dashboard/nav-links.js", "app/ui/dashboard/nav-links-usuario.js", "app/ui/dashboard/nav-links-cajero.js", "app/ui/accordion.js", "app/ui/navbar.js" ],
   "exclude": ["node_modules"]
 }

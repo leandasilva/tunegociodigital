@@ -16,7 +16,6 @@ export default function RootLayout({
     <html lang="en">
         <title>Tu Neg Dig</title>
       <body>
-        <Navbar/>
         {children}</body>
     </html>
    </ApolloProvider>
