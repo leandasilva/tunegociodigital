@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { montserrat } from './fonts';
+import AcmeLogo from './acme-logo';
 
 const AUTENTICAR_USUARIO = gql`
   mutation AutenticarUsuario($input: AutenticarInput) {
@@ -246,15 +247,15 @@ const Login = () => {
 
         <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
           <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-            <h2 className="mb-16 text-center text-2xl text-black dark:text-white sm:text-title-xl2">
-              Iniciar Sesion en TND
+            <h2 className="mb-16 text-center text-2xl mb-4 text-black  sm:text-title-xl2">
+              TuNegDigital
             </h2>
-
+         
             <form onSubmit={formik.handleSubmit}>
               {mensaje && mostrarMensaje()}
               <div className="mb-4">
-                <label className="mb-2.5 block font-medium text-black dark:text-white" htmlFor="email">
-                  Email
+                <label className="mb-2.5 block font-medium text-black " htmlFor="email">
+                  Correo
                 </label>
                 <div className="relative">
                   <input
@@ -262,7 +263,7 @@ const Login = () => {
                     type="email"
                     className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     name="email"
-                    placeholder="Ingrese email..."
+                    placeholder="Ingrese su correo..."
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.email}
@@ -288,7 +289,7 @@ const Login = () => {
 
 
               <div className="mb-6">
-                <label className="mb-2.5 block font-medium text-black dark:text-white" htmlFor="password">
+                <label className="mb-2.5 block font-medium text-black" htmlFor="password">
                   Contraseña
                 </label>
                 <div className="relative">
@@ -297,7 +298,7 @@ const Login = () => {
                     id="password"
                     name="password"
                     type={mostrarPassword ? 'text' : 'password'}
-                    placeholder="Ingrese contraseña..."
+                    placeholder="Ingrese su contraseña..."
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password} />
