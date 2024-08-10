@@ -12,9 +12,6 @@ const OBTENER_CAJERO = gql`
 query ObtenerCajeroUser($id: ID!) {
     obtenerCajeroUser(id: $id) {
       id
-      nombre
-      email
-      empresa
       entrada
       salida
       estado
@@ -25,7 +22,7 @@ query ObtenerCajeroUser($id: ID!) {
   `;
 
   const ACTUALIZAR_CAJERO = gql`
-  mutation ActualizarUsuarioCajero($id: ID!, $input: CajeroInput) {
+  mutation ActualizarUsuarioCajero($id: ID!, $input: CajeroInp) {
     actualizarUsuarioCajero(id: $id, input: $input) {
       id
       nombre
@@ -59,15 +56,15 @@ const EditarCajeroUsuario = ({params}) => {
         const [ actualizarUsuarioCajero ] = useMutation( ACTUALIZAR_CAJERO);
 
    // Schema de validacion
-   const schemaValidacion = Yup.object({
-    nombre: Yup.string() 
-                .required('El nombre del cajero es obligatorio'),
-    empresa: Yup.string() 
-                .required('El campo empresa  es obligatorio'),
-    email: Yup.string()
-                .email('Email no válido')
-                .required('El email del cajero es obligatorio')
-});
+//    const schemaValidacion = Yup.object({
+//     nombre: Yup.string() 
+//                 .required('El nombre del cajero es obligatorio'),
+//     empresa: Yup.string() 
+//                 .required('El campo empresa  es obligatorio'),
+//     email: Yup.string()
+//                 .email('Email no válido')
+//                 .required('El email del cajero es obligatorio')
+// });
 
     if(loading) return 'Cargando...';
 
@@ -80,7 +77,7 @@ const EditarCajeroUsuario = ({params}) => {
     // Modifica el cliente en la BD
     const actualizarInfoCajero = async valores => {
 
-        const { nombre,email, empresa,password,entrada,salida, estado,user } = valores;
+        const { entrada,salida, estado,user } = valores;
 
        
         try {
@@ -88,10 +85,6 @@ const EditarCajeroUsuario = ({params}) => {
                 variables: {
                     id,
                     input: {
-                        nombre, 
-                        email, 
-                        empresa,
-                        password,
                         entrada,
                         salida,
                         estado,
@@ -127,7 +120,7 @@ const EditarCajeroUsuario = ({params}) => {
                 <div className="w-full max-w-lg">
 
                     <Formik
-                        validationSchema={ schemaValidacion }
+                        // validationSchema={ schemaValidacion }
                         enableReinitialize
                         initialValues={ obtenerCajeroUser  }
                         onSubmit={ ( valores ) => {
@@ -149,7 +142,7 @@ const EditarCajeroUsuario = ({params}) => {
                                 </div>
 
 
-                                    <div className="mb-4">
+                                    {/* <div className="mb-4">
                                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nombre">
                                             Nombre
                                         </label>
@@ -220,7 +213,7 @@ const EditarCajeroUsuario = ({params}) => {
                                             <p className="font-bold">Error</p>
                                             <p>{props.errors.empresa}</p>
                                         </div>
-                                    ) : null  }
+                                    ) : null  } */}
 
                                     <div className="mb-4">
                                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="entrada">

@@ -19,19 +19,19 @@ const NUEVO_BALANCE = gql`
 
 const OBTENER_VENTAS = gql`
   query ObtenerVentaUsuario {
-    obtenerVentaUsuario {
+  obtenerVentaUsuario {
+    id
+    cajero
+    clientes {
       id
-      clientes {
-        id
-        razonsocial
-        total
-      }
-      totalVenta
-      cajero
-      creado
-      user
+      nombre
+      total
     }
+    user
+    totalVenta
+    creado
   }
+}
 `;
 
 const OBTENER_PROVEEDOR = gql`
