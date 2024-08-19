@@ -247,16 +247,13 @@ const Login = () => {
 
         <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
           <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-            <h2 className="mb-16 text-center text-2xl mb-4 text-black  sm:text-title-xl2">
+            <h2 className=" text-center text-2xl mb-6 text-black  sm:text-title-xl2">
               TuNegDigital
             </h2>
          
             <form onSubmit={formik.handleSubmit}>
               {mensaje && mostrarMensaje()}
               <div className="mb-4">
-                <label className="mb-2.5 block font-medium text-black " htmlFor="email">
-                  Correo
-                </label>
                 <div className="relative">
                   <input
                     id="email"
@@ -289,9 +286,6 @@ const Login = () => {
 
 
               <div className="mb-6">
-                <label className="mb-2.5 block font-medium text-black" htmlFor="password">
-                  Contraseña
-                </label>
                 <div className="relative">
                   <input
                     className="shadow rounded-lg py-4 pl-6 pr-10 appearance-none border w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

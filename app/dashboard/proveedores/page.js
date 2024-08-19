@@ -67,7 +67,7 @@ const Proveedores = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
-        <Button className="mt-5" onClick={handleRefresh}>Actualizar Monto</Button>
+        <Button className="mt-5" onClick={handleRefresh}>Actualizar Monto a pagar</Button>
 
 <div className="mt-6 overflow-x-auto">
   <div className="sm:-mx-6 lg:-mx-8">
