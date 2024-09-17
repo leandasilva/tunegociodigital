@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect,useState } from 'react';
 import React from 'react';
 import '../ui/global.css';
 import SideNav from '@/app/ui/dashboard/sidenav';
@@ -8,6 +9,8 @@ import client from '../lib/apollo';
 import PedidoState from '../ui/context/pedidostate';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+
+
   return (
       <ApolloProvider client={client}>
         <PedidoState>
@@ -17,7 +20,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div> 
           <div className="flex-grow p-6 md:overflow-y-auto md:p-12">{children}</div>
         </div>
-        </PedidoState>
+        </PedidoState>z
         </ApolloProvider>
   );
 }

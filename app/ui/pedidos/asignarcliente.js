@@ -34,9 +34,9 @@ const AsignarCliente = () => {
     // console.log(loading)
     // console.log(error)
 
-     useEffect(() => {
-         agregarCliente(cliente);
-     }, [cliente])
+    useEffect(() => {
+      agregarCliente(cliente);
+    }, [cliente]);
 
     const seleccionarCliente = clientes => {
         setCliente(clientes);

@@ -1,5 +1,6 @@
-'use client'
+"use client"
 
+import dynamic from 'next/dynamic';
 import React, {useState,useEffect} from 'react';
 import Factura from '@/app/lib/factura';
 import Link from 'next/link';
@@ -126,33 +127,6 @@ const Facturas = () => {
     </Document>
   );
 
-
-  // return (
-  //   <div>
-  //   <h1 className={`${lusitana.className} mt-5 mb-5 text-xl md:text-2xl`}>Facturas</h1>
-  //   <input
-  //     type="text"
-  //     value={empresa}
-  //     onChange={(e) => setEmpresa(e.target.value)}
-  //     placeholder="Ingrese empresa..."
-  //     className="mt-3 border rounded-md flex"
-  //   />
-  //   {obtenerFacturas.length === 0 ? (
-  //     <p className={`${lusitana.className} mt-3 text-2xl text-center md:text-2xl`}>No hay facturas de la empresa seleccionada</p>
-  //   ) : (
-  //     <div>
-  //     <div className="flex justify-end top-0"> 
-  //       <Button>
-  //       <PDFDownloadLink document={<PedidoDocument />} fileName="documento.pdf">
-  //         {({ blob, url, loading, error }) => (loading ? 'Generando PDF...' : 'Descargar factura')}
-  //       </PDFDownloadLink></Button></div>
-  //       {obtenerFacturas.map((factura) => (
-  //         <Factura key={factura.id} factura={factura} refetchFactura={refetchFactura} />
-  //       ))}
-  //     </div>
-  //   )}
-  // </div>
-  // );
   return (
     <div>
         <h1 className={`${lusitana.className} mt-5 mb-5 text-xl md:text-2xl`}>Facturas</h1>

@@ -85,12 +85,6 @@ const Administrador = () => {
                                     onBlur={props.handleBlur}
                                     value={props.values.nombre}
                                 />
-                                {props.touched.nombre && props.errors.nombre && (
-                                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                        <p className="font-bold">Error</p>
-                                        <p>{props.errors.nombre}</p>
-                                    </div>
-                                )}
                             </div>
 
                             <div className={`${lusitana.className} mb-4`}>
@@ -106,12 +100,7 @@ const Administrador = () => {
                                     onBlur={props.handleBlur}
                                     value={props.values.email}
                                 />
-                                {props.touched.email && props.errors.email && (
-                                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                        <p className="font-bold">Error</p>
-                                        <p>{props.errors.email}</p>
-                                    </div>
-                                )}
+                        
                             </div>
 
                             <div className={`${lusitana.className} mb-4`}>
@@ -127,12 +116,6 @@ const Administrador = () => {
                                     onBlur={props.handleBlur}
                                     value={props.values.dni}
                                 />
-                                {props.touched.dni && props.errors.dni && (
-                                    <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
-                                        <p className="font-bold">Error</p>
-                                        <p>{props.errors.dni}</p>
-                                    </div>
-                                )}
                             </div>
 
                         </form>

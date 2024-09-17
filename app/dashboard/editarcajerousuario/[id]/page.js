@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import React,{useState} from 'react';
 import { useRouter } from 'next/navigation'
@@ -54,17 +54,6 @@ const EditarCajeroUsuario = ({params}) => {
 
         // mutation para actualizar cliente
         const [ actualizarUsuarioCajero ] = useMutation( ACTUALIZAR_CAJERO);
-
-   // Schema de validacion
-//    const schemaValidacion = Yup.object({
-//     nombre: Yup.string() 
-//                 .required('El nombre del cajero es obligatorio'),
-//     empresa: Yup.string() 
-//                 .required('El campo empresa  es obligatorio'),
-//     email: Yup.string()
-//                 .email('Email no válido')
-//                 .required('El email del cajero es obligatorio')
-// });
 
     if(loading) return 'Cargando...';
 

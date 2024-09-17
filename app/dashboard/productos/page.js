@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import Producto from '@/app/lib/producto';
 import { gql, useQuery } from '@apollo/client';
@@ -32,7 +32,7 @@ const Productos = () => {
 
   useEffect(() => {
     refetch();
-  }, []); // Esto ejecutará refetch() solo una vez, cuando el componente se monte
+  }, [refetch]); // Esto ejecutará refetch() solo una vez, cuando el componente se monte
 
 
   // console.log(data)

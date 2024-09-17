@@ -22,7 +22,7 @@ import {
     { name: 'Venta detalle por Cajero', href: '/dashboard/pedidoporcajero', icon:  UserIcon },
     { name: 'Cierres de Caja', href: '/dashboard/ventascajero', icon:  ShoppingCartIcon },
     { name: 'Cierres de caja por Cajero', href: '/dashboard/ventaporcajero', icon:  UserIcon },
-    { name: 'Balance de Empresa', href: '/dashboard/balance', icon: ChartBarIcon },
+    //{ name: 'Balance de Empresa', href: '/dashboard/balance', icon: ChartBarIcon },
   ];
 
   

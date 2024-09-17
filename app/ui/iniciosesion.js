@@ -64,33 +64,41 @@ const Login = () => {
 
     onSubmit: async (values) => {
       try {
-        if (values.email.endsWith('@admin.com')) {
-          const { data } = await autenticarAdministrador({ variables: { input: values } });
-          guardarMensaje('Autenticando...');
-          localStorage.setItem('token', data.autenticarAdministrador.token);
-          localStorage.setItem('email', data.autenticarAdministrador.email); // Guarda el token en localStorage
-          setTimeout(() => {
-            guardarMensaje(null);
-            router.push('/dashboard/administrador');
-          }, 1000);
-        } else if(values.email.endsWith('@cajero.com')) {
-         const { data } = await autenticarCajero({ variables: { input: values } });
-        guardarMensaje('Autenticando...');
-        localStorage.setItem('token', data.autenticarCajero.token); // Guarda el token en localStorage
-        localStorage.setItem('email', data.autenticarCajero.email);
-        setTimeout(() => {
-          guardarMensaje(null);
-          router.push('/dashboard/cajero');
-        }, 1000);
-        } else {
-        const { data } = await autenticarUsuario({ variables: { input: values } });
-        guardarMensaje('Autenticando...');
-        localStorage.setItem('token', data.autenticarUsuario.token); // Guarda el token en localStorage
-        localStorage.setItem('email', data.autenticarUsuario.email);
-        setTimeout(() => {
-          guardarMensaje(null);
-          router.push('/dashboard');
-        }, 1000);
+        if (typeof window !== "undefined") { // Ensure this runs on the client
+          if (values.email.endsWith('@admin.com')) {
+            const { data } = await autenticarAdministrador({ variables: { input: values } });
+            guardarMensaje('Autenticando...');
+            localStorage.setItem('token', data.autenticarAdministrador.token);
+            localStorage.setItem('email', data.autenticarAdministrador.email);
+            setTimeout(() => {
+              guardarMensaje(null);
+              router.push('/dashboard/administrador');
+            }, 1000);
+          } else if (values.email.endsWith('@cajero.com')) {
+            const { data } = await autenticarCajero({ variables: { input: values } });
+            guardarMensaje('Autenticando...');
+            localStorage.setItem('token', data.autenticarCajero.token);
+            localStorage.setItem('email', data.autenticarCajero.email);
+            setTimeout(() => {
+              guardarMensaje(null);
+              router.push('/dashboard/cajero');
+            }, 1000);
+          } else if (values.email.endsWith('@usuario.com')) {
+            const { data } = await autenticarUsuario({ variables: { input: values } });
+            guardarMensaje('Autenticando...');
+            localStorage.setItem('token', data.autenticarUsuario.token);
+            localStorage.setItem('email', data.autenticarUsuario.email);
+            setTimeout(() => {
+              guardarMensaje(null);
+              router.push('/dashboard/usuario');
+            }, 1000);
+          } else {
+            guardarMensaje('Usuario incorrecto...');
+            setTimeout(() => {
+              guardarMensaje(null);
+              router.push('/');
+            }, 1000);
+          }
         }
       } catch (error) {
         guardarMensaje(error.message.replace('GraphQL error: ', ''));

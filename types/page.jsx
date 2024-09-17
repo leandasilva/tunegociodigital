@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 export const SELECCIONAR_CLIENTE = 'SELECCIONAR_CLIENTE';
 export const SELECCIONAR_PRODUCTO = 'SELECCIONAR_PRODUCTO';

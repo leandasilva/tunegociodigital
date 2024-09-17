@@ -1,5 +1,5 @@
 // pages/_app.js or pages/_app.tsx
-'use client'
+"use client"
 import React from 'react';
 import { ApolloProvider } from '@apollo/client';
 import  client  from '@/app/lib/apollo';
