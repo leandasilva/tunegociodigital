@@ -13,7 +13,7 @@ import {
     // { name: 'Home', href: '/dashboard', icon: HomeIcon },
     { name: 'Mis Datos', href: '/dashboard/usuario', icon: UserCircleIcon },
     { name: 'Cajeros',href: '/dashboard/cajerosporusuario', icon: UserGroupIcon},
-    { name: 'Clientes', href: '/dashboard/clientes', icon: UserGroupIcon },
+    { name: 'Clientes/Forma de pago', href: '/dashboard/clientes', icon: UserGroupIcon },
     { name: 'Proveedores', href: '/dashboard/proveedores', icon: UserGroupIcon },
     { name: 'Facturas Guardadas', href: '/dashboard/facturas', icon: CircleStackIcon },
     { name: 'Productos', href: '/dashboard/productos', icon: ShoppingBagIcon},
@@ -22,7 +22,7 @@ import {
     { name: 'Venta detalle por Cajero', href: '/dashboard/pedidoporcajero', icon:  UserIcon },
     { name: 'Cierres de Caja', href: '/dashboard/ventascajero', icon:  ShoppingCartIcon },
     { name: 'Cierres de caja por Cajero', href: '/dashboard/ventaporcajero', icon:  UserIcon },
-    //{ name: 'Balance de Empresa', href: '/dashboard/balance', icon: ChartBarIcon },
+    { name: 'Balance de Empresa', href: '/dashboard/balance', icon: ChartBarIcon },
   ];
 
   
