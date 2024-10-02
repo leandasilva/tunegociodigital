@@ -10,7 +10,7 @@ import {
   // Map of links to display in the side navigation.
   // Depending on the size of the application, this would be stored in a database.
   const links = [
-    // { name: 'Home', href: '/dashboard', icon: HomeIcon },
+    //{ name: 'Home', href: '/dashboard', icon: HomeIcon },
     { name: 'Mis Datos', href: '/dashboard/usuario', icon: UserCircleIcon },
     { name: 'Cajeros',href: '/dashboard/cajerosporusuario', icon: UserGroupIcon},
     { name: 'Clientes/Forma de pago', href: '/dashboard/clientes', icon: UserGroupIcon },

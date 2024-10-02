@@ -90,7 +90,7 @@ const Login = () => {
             localStorage.setItem('email', data.autenticarUsuario.email);
             setTimeout(() => {
               guardarMensaje(null);
-              router.push('/dashboard/usuario');
+              router.push('/dashboard/home');
             }, 1000);
           } else {
             guardarMensaje('Usuario incorrecto...');
