@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from 'react';
 import React from 'react';
@@ -32,36 +32,6 @@ const MEJORES_CLIENTES = gql`
   }
 `;
 
-const OBTENER_VENTA = gql`
-  query ObtenerVentaUsuario {
-    obtenerVentaUsuario {
-      id
-      cajero
-      clientes {
-        id
-        nombre
-        total
-      }
-      user
-      totalVenta
-      creado
-    }
-  }
-`;
-
-const OBTENER_GASTOS = gql`
-  query ObtenerProveedores {
-    obtenerProveedores {
-      id
-      empresa
-      monto
-      telefono
-      creado
-      user
-    }
-  }
-`;
-
 const OBTENER_PEDIDOS = gql`
   query ObtenerPedidosUsuario {
     obtenerPedidosUsuario {
@@ -85,41 +55,36 @@ const OBTENER_PEDIDOS = gql`
   }
 `;
 
+// Consulta para obtener reporte
+const OBTENER_REPORTE = gql`
+  query ObtenerReporte {
+    obtenerReporte {
+      id
+      ventaReporte
+      totalGastoReporte
+      user
+    }
+  }
+`;
+
 const Balance: React.FC = () => {
-  const [totalSales, setTotalSales] = useState<number>(0);
-  const [totalExpenses, setTotalExpenses] = useState<number>(0);
   const [totalOrders, setTotalOrders] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
   const { loading: loadingMejores, data: mejoresData, startPolling, stopPolling } = useQuery(MEJORES_CLIENTES);
-  const { loading: loadingSales, data: salesData } = useQuery(OBTENER_VENTA);
-  const { loading: loadingExpenses, data: expensesData } = useQuery(OBTENER_GASTOS);
   const { loading: loadingOrders, data: ordersData } = useQuery(OBTENER_PEDIDOS);
+  const { data: reporteData, loading: loadingReporte, error } = useQuery(OBTENER_REPORTE);
   const { loading: loadingBalance, data: balanceData } = useQuery(OBTENER_BALANCE);
 
   useEffect(() => {
-    if (!loadingMejores && !loadingSales && !loadingExpenses && !loadingOrders) {
+    if (!loadingMejores && loadingReporte && !loadingOrders) {
       setLoading(false);
       startPolling(1000);
     }
     return () => {
       stopPolling();
     };
-  }, [loadingMejores, loadingSales, loadingExpenses, loadingOrders, startPolling, stopPolling]);
-
-  useEffect(() => {
-    if (salesData && salesData.obtenerVentaUsuario) {
-      const total = salesData.obtenerVentaUsuario.reduce((acc: number, venta: any) => acc + venta.totalVenta, 0);
-      setTotalSales(total);
-    }
-  }, [salesData]);
-
-  useEffect(() => {
-    if (expensesData && expensesData.obtenerProveedores) {
-      const total = expensesData.obtenerProveedores.reduce((acc: number, gasto: any) => acc + gasto.monto, 0);
-      setTotalExpenses(total);
-    }
-  }, [expensesData]);
+  }, [loadingMejores, loadingOrders, startPolling, stopPolling]);
 
   useEffect(() => {
     if (ordersData && ordersData.obtenerPedidosUsuario) {
@@ -131,27 +96,33 @@ const Balance: React.FC = () => {
     }
   }, [ordersData]);
 
-  if (loadingMejores || loadingSales || loadingExpenses || loadingOrders || loadingBalance) return 'Cargando...';
+  if (loadingMejores || loadingReporte || loadingOrders || loadingBalance) return 'Cargando...';
 
   const obtenerClientesUsuario = mejoresData?.obtenerClientesUsuario || [];
+
+  // Extraer los datos del reporte (ventaReporte y totalGastoReporte)
+  const totalVentaReporte = reporteData?.obtenerReporte?.ventaReporte || 0;
+  const totalGastoReporte = reporteData?.obtenerReporte?.totalGastoReporte || 0;
+
+  // Calcular el balance a partir de los datos del reporte
+  const balance = {
+    ganancia: totalVentaReporte - totalGastoReporte,
+    venta: totalVentaReporte,
+    totalGasto: totalGastoReporte,
+    total: totalOrders,
+  };
 
   const clienteGrafica1 = obtenerClientesUsuario.map((cliente: { razonsocial: any; totalGral: any; }) => ({
     razonsocial: cliente.razonsocial, // Nombre del cliente
     total: cliente.totalGral // Total del cliente
   }));
 
+  // Extraer datos de la gráfica de balance
   const clienteGrafica = balanceData?.obtenerBalance.map((balance: { venta: any; totalGasto: any; creado: string }) => ({
     name: balance.creado, // Formatear la fecha
     totalVenta: balance.venta,
     totalGasto: balance.totalGasto,
   }));
-
-  const balance = {
-    ganancia: totalSales - totalExpenses,
-    venta: totalSales,
-    totalGasto: totalExpenses,
-    total: totalOrders,
-  };
 
   return (
     <div className="p-5 bg-gray-100">

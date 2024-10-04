@@ -1,6 +1,6 @@
-// "use client"
+// "use client";
 
-// import React, { useEffect} from 'react';
+// import React, { useEffect } from 'react';
 // import { gql, useMutation, useQuery } from '@apollo/client';
 // import Swal from 'sweetalert2';
 
@@ -18,92 +18,82 @@
 //   }
 // `;
 
-// // Consultas para obtener ventas y proveedores
-// const OBTENER_VENTAS = gql`
-//   query ObtenerVentaUsuario {
-//     obtenerVentaUsuario {
-//       id
-//       cajero
-//       clientes {
-//         id
-//         nombre
-//         total
-//       }
-//       user
-//       totalVenta
-//       creado
-//     }
+// // Consulta para obtener reporte
+// const OBTENER_REPORTE = gql`
+// query ObtenerReporte {
+//   obtenerReporte {
+//     id
+//     ventaReporte
+//     totalGastoReporte
+//     user
 //   }
+// }
 // `;
-
-// const OBTENER_PROVEEDOR = gql`
-//   query ObtenerProveedores {
-//     obtenerProveedores {
-//       id
-//       empresa
-//       monto
-//       telefono
-//       creado
-//       user
-//     }
-//   }
-// `;
-
-
 
 // export default function Page() {
 //   const [crearNuevoBalance] = useMutation(NUEVO_BALANCE);
-//   const { data: ventasData } = useQuery(OBTENER_VENTAS);
-//   const { data: proveedoresData } = useQuery(OBTENER_PROVEEDOR);
 
-  
+//   // Realizar la consulta de reporte
+//   const { data: reporteData, loading, error } = useQuery(OBTENER_REPORTE);
+
 //   useEffect(() => {
-//     const currentDate = new Date();
+//     if (loading) return; // Asegurarse de que la consulta está lista
+//     if (error) {
+//       console.error("Error obteniendo reporte:", error);
+//       return;
+//     }
+
+//     const currentDate = new Date('2024-11-02');
+
+//     //const currentDate = new Date();
 //     const currentDay = currentDate.getDate();
 //     const currentMonth = currentDate.getMonth() + 1;
 //     const currentYear = currentDate.getFullYear();
 
-   
-//     // Si no se generó balance hoy y es el día 1 del mes
-//    if (currentDay === 1) {
-//       Swal.fire({
-//         title: '¿Generar nuevo balance?',
-//         text: 'El balance solo se puede generar una vez por día.',
-//         icon: 'question',
-//         showCancelButton: true,
-//         confirmButtonText: 'Sí',
-//         cancelButtonText: 'Cancelar',
-//       }).then((result) => {
-//         if (result.isConfirmed) {
-//           // Calcular ventas totales
-//           const totalVenta = ventasData?.obtenerVentaUsuario?.reduce(
-//             (acc: any, venta: { totalVenta: any }) => acc + venta.totalVenta,
-//             0
-//           ) || 0;
+//     // Obtener la última fecha de generación de balance del localStorage
+//     const lastBalanceDate = localStorage.getItem('lastBalanceDate');
+//     console.log(lastBalanceDate);
+//     console.log(currentDate);
+//     // Si no hay balance previo, permitir la creación de balance
+//     if (!lastBalanceDate) {
+//       if (currentDay === 1) {
+//         Swal.fire({
+//           title: '¿Generar nuevo balance?',
+//           text: 'El balance solo se puede generar una vez por día.',
+//           icon: 'question',
+//           showCancelButton: true,
+//           confirmButtonText: 'Sí',
+//           cancelButtonText: 'Cancelar',
+//         }).then((result) => {
+//           if (result.isConfirmed) {
+//             // Extraer los valores de ventaReporte y totalGastoReporte
+//             const totalVenta = reporteData?.obtenerReporte?.ventaReporte || 0;
+//             const totalGasto = reporteData?.obtenerReporte?.totalGastoReporte || 0;
 
-//           // Calcular gastos totales
-//           const totalGasto = proveedoresData?.obtenerProveedores?.reduce(
-//             (acc: any, proveedor: { monto: any }) => acc + proveedor.monto,
-//             0
-//           ) || 0;
-
-//           // Crear nuevo balance
-//           crearNuevoBalance({
-//             variables: {
-//               input: {
-//                 venta: totalVenta,
-//                 totalGasto: totalGasto,
-//               }
-//             }
-//           }).then(() => {
-//             Swal.fire('¡Balance generado!', '', 'success');
-//           }).catch((error) => {
-//             Swal.fire('¡Error!', error.message, 'error');
-//           });
-//         }
-//       });
+//             // Crear nuevo balance
+//             crearNuevoBalance({
+//               variables: {
+//                 input: {
+//                   venta: totalVenta,
+//                   totalGasto: totalGasto,
+//                 },
+//               },
+//             })
+//               .then(() => {
+//                 // Guardar la fecha actual en el localStorage como la última vez que se generó un balance
+//                 localStorage.setItem('lastBalanceDate', currentDate.toString());
+//                 Swal.fire('¡Balance generado!', '', 'success');
+//               })
+//               .catch((error) => {
+//                 Swal.fire('¡Error!', error.message, 'error');
+//               });
+//           }
+//         });
+//       }
+//     } else {
+//       console.log('Ya se ha generado un balance este mes. No se puede volver a generar.');
 //     }
-//   }, [ventasData, proveedoresData, crearNuevoBalance]);
+//   }, [reporteData, crearNuevoBalance, loading, error]);
 
 //   return (
 //     <div>
@@ -133,32 +123,13 @@ const NUEVO_BALANCE = gql`
   }
 `;
 
-// Consultas para obtener ventas y proveedores
-const OBTENER_VENTAS = gql`
-  query ObtenerVentaUsuario {
-    obtenerVentaUsuario {
+// Consulta para obtener reporte
+const OBTENER_REPORTE = gql`
+  query ObtenerReporte {
+    obtenerReporte {
       id
-      cajero
-      clientes {
-        id
-        nombre
-        total
-      }
-      user
-      totalVenta
-      creado
-    }
-  }
-`;
-
-const OBTENER_PROVEEDOR = gql`
-  query ObtenerProveedores {
-    obtenerProveedores {
-      id
-      empresa
-      monto
-      telefono
-      creado
+      ventaReporte
+      totalGastoReporte
       user
     }
   }
@@ -166,68 +137,78 @@ const OBTENER_PROVEEDOR = gql`
 
 export default function Page() {
   const [crearNuevoBalance] = useMutation(NUEVO_BALANCE);
-  const { data: ventasData } = useQuery(OBTENER_VENTAS);
-  const { data: proveedoresData } = useQuery(OBTENER_PROVEEDOR);
+
+  // Realizar la consulta de reporte
+  const { data: reporteData, loading, error } = useQuery(OBTENER_REPORTE);
 
   useEffect(() => {
-    const currentDate = new Date();
+    if (loading) return; // Asegurarse de que la consulta está lista
+    if (error) {
+      console.error("Error obteniendo reporte:", error);
+      return;
+    }
+    //const currentDate = new Date('2024-11-02');
+    const currentDate = new Date(); // Fecha actual
     const currentDay = currentDate.getDate();
     const currentMonth = currentDate.getMonth() + 1;
     const currentYear = currentDate.getFullYear();
 
     // Obtener la última fecha de generación de balance del localStorage
     const lastBalanceDate = localStorage.getItem('lastBalanceDate');
-    console.log(lastBalanceDate)
-    // Si no hay balance previo, permitir la creación de balance
-    if (!lastBalanceDate) {
-      if (currentDay === 1) {
-        Swal.fire({
-          title: '¿Generar nuevo balance?',
-          text: 'El balance solo se puede generar una vez por día.',
-          icon: 'question',
-          showCancelButton: true,
-          confirmButtonText: 'Sí',
-          cancelButtonText: 'Cancelar',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // Calcular ventas totales
-            const totalVenta =
-              ventasData?.obtenerVentaUsuario?.reduce(
-                (acc: any, venta: { totalVenta: any }) => acc + venta.totalVenta,
-                0
-              ) || 0;
+    
+    if (lastBalanceDate) {
+      // Convertir la cadena guardada en localStorage a un objeto Date
+      const lastBalance = new Date(lastBalanceDate);
 
-            // Calcular gastos totales
-            const totalGasto =
-              proveedoresData?.obtenerProveedores?.reduce(
-                (acc: any, proveedor: { monto: any }) => acc + proveedor.monto,
-                0
-              ) || 0;
+      // Calcular la diferencia en meses entre la fecha actual y la última fecha de balance
+      const monthsDifference =
+        currentMonth -
+        (lastBalance.getMonth() + 1) +
+        (currentYear - lastBalance.getFullYear()) * 12;
 
-            // Crear nuevo balance
-            crearNuevoBalance({
-              variables: {
-                input: {
-                  venta: totalVenta,
-                  totalGasto: totalGasto,
-                },
-              },
-            })
-              .then(() => {
-                // Guardar la fecha actual en el localStorage como la última vez que se generó un balance
-                localStorage.setItem('lastBalanceDate', currentDate.toString());
-                Swal.fire('¡Balance generado!', '', 'success');
-              })
-              .catch((error) => {
-                Swal.fire('¡Error!', error.message, 'error');
-              });
-          }
-        });
+      // Si no ha pasado un mes, no permitir la generación del balance
+      if (monthsDifference < 1) {
+        console.log('Ya se ha generado un balance este mes. No se puede volver a generar.');
+        return;
       }
-    } else {
-      console.log('Ya se ha generado un balance este mes. No se puede volver a generar.');
     }
-  }, [ventasData, proveedoresData, crearNuevoBalance]);
+
+    // Si no hay balance previo o ya pasó un mes, permitir la creación de balance
+    if (currentDay === 1) {
+      Swal.fire({
+        title: '¿Generar nuevo balance?',
+        text: 'El balance solo se puede generar una vez al mes.',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Extraer los valores de ventaReporte y totalGastoReporte
+          const totalVenta = reporteData?.obtenerReporte?.ventaReporte || 0;
+          const totalGasto = reporteData?.obtenerReporte?.totalGastoReporte || 0;
+
+          // Crear nuevo balance
+          crearNuevoBalance({
+            variables: {
+              input: {
+                venta: totalVenta,
+                totalGasto: totalGasto,
+              },
+            },
+          })
+            .then(() => {
+              // Guardar la fecha actual en el localStorage como la última vez que se generó un balance
+              localStorage.setItem('lastBalanceDate', currentDate.toString());
+              Swal.fire('¡Balance generado!', '', 'success');
+            })
+            .catch((error) => {
+              Swal.fire('¡Error!', error.message, 'error');
+            });
+        }
+      });
+    }
+  }, [reporteData, crearNuevoBalance, loading, error]);
 
   return (
     <div>
@@ -236,4 +217,5 @@ export default function Page() {
     </div>
   );
 }
+
 
