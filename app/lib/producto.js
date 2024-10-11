@@ -1,10 +1,9 @@
-'use client'
+"use client"
 
 import React from 'react';
 import Swal from 'sweetalert2'
 import { gql, useMutation } from '@apollo/client'
 import {useRouter} from 'next/navigation';
-import { Button } from '../ui/button';
 import {
     TrashIcon,PencilSquareIcon,PlusCircleIcon
   } from '@heroicons/react/24/outline';
@@ -12,23 +11,22 @@ import {
 const ELIMINAR_PRODUCTO = gql`
     mutation eliminarProducto($id: ID!) {
         eliminarProducto(id: $id) 
-    }
-`;
+    }`;
 
-const OBTENER_PRODUCTOS = gql`
-query ObtenerProductosUsuario {
-    obtenerProductosUsuario {
-      id
-      nombre
-      precio
-      existencia
-      codigo
-      estado
-      creado
-      user
+    const OBTENER_PRODUCTOS = gql`
+    query ObtenerProductosUsuario {
+      obtenerProductosUsuario {
+        id
+        nombre
+        precio
+        existencia
+        codigo
+        estado
+        creado
+        user
+      }
     }
-  }
-`;
+  `;
 
 const Producto = ({producto}) => {
 
@@ -83,7 +81,7 @@ const Producto = ({producto}) => {
                 
                 }
           })
-    }
+    };
 
 
     const editarProducto = () => {
@@ -109,3 +107,4 @@ const Producto = ({producto}) => {
 }
  
 export default Producto;
+

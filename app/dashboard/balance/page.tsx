@@ -62,6 +62,7 @@ const OBTENER_REPORTE = gql`
       id
       ventaReporte
       totalGastoReporte
+      cantidadVenta
       user
     }
   }
@@ -103,13 +104,14 @@ const Balance: React.FC = () => {
   // Extraer los datos del reporte (ventaReporte y totalGastoReporte)
   const totalVentaReporte = reporteData?.obtenerReporte?.ventaReporte || 0;
   const totalGastoReporte = reporteData?.obtenerReporte?.totalGastoReporte || 0;
+  const cantidadVenta = reporteData?.obtenerReporte?.cantidadVenta || 0;
 
   // Calcular el balance a partir de los datos del reporte
   const balance = {
     ganancia: totalVentaReporte - totalGastoReporte,
     venta: totalVentaReporte,
     totalGasto: totalGastoReporte,
-    total: totalOrders,
+    total: cantidadVenta,
   };
 
   const clienteGrafica1 = obtenerClientesUsuario.map((cliente: { razonsocial: any; totalGral: any; }) => ({
