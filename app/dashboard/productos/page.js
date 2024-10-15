@@ -34,20 +34,25 @@ const Productos = () => {
     }
   }, [data]);
 
-  // Función de búsqueda que se activa solo al hacer clic en el botón
   const handleSearch = () => {
     if (data) {
       if (searchTerm.trim() === '') {
         setFilteredProducts([]); // Si no hay término de búsqueda, mostrar array vacío
       } else {
-        const filtered = data.obtenerProductosUsuario.filter((producto) =>
-          producto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          producto.codigo.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        const filtered = data.obtenerProductosUsuario.filter((producto) => {
+          const nombre = producto.nombre || ''; // Asegurar que nombre no sea nulo
+          const codigo = producto.codigo || ''; // Asegurar que código no sea nulo
+  
+          return (
+            nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            codigo.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        });
         setFilteredProducts(filtered); // Filtra solo al hacer clic
       }
     }
   };
+  
 
   if (loading) return 'Cargando productos...';
   if (error) return `Error: ${error.message}`;

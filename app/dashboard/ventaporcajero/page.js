@@ -9,8 +9,8 @@ import { lusitana } from '@/app/ui/fonts';
 import {Button} from '@/app/ui/button';
 
 const OBTENER_VENTAS = gql`
-query ObtenerVentaUsuarioPorCajero($cajero: String!) {
-  obtenerVentaUsuarioPorCajero(cajero: $cajero) {
+query ObtenerVentaUsuarioPorCajero($cajero: String!, $limit: Int, $offset: Int) {
+  obtenerVentaUsuarioPorCajero(cajero: $cajero, limit: $limit, offset: $offset) {
     id
     cajero
     clientes {
@@ -63,6 +63,8 @@ const VentaporCajero = () => {
   };
 
   const [cajero, setCajero] = useState("");
+  const [offset, setOffset] = useState(0);
+  const [page, setPage] = useState(1);
 
 
   const { data: cajerosData, loading: cajerosLoading, error: cajerosError } = useQuery(OBTENER_CAJEROS);
@@ -70,7 +72,7 @@ const VentaporCajero = () => {
 
 
   const { data, loading, error, refetch } = useQuery(OBTENER_VENTAS, {
-    variables: { cajero},
+    variables: { cajero, limit: 100, offset: 0 }, // Empieza en la primera página
   });
 
   if (loading) return 'Cargando...';
@@ -135,6 +137,21 @@ const VentaporCajero = () => {
       </Page>
     </Document>
   );
+
+
+const nextPage = () => {
+  setOffset(offset + 100);
+  setPage(page + 1);
+  refetch({ cajero, limit: 100, offset: offset + 100 });
+};
+
+const previousPage = () => {
+  if (offset > 0) {
+    setOffset(offset - 100);
+    setPage(page - 1);
+    refetch({ cajero, limit: 100, offset: offset - 100 });
+  }
+};
   
 
   return (
@@ -161,15 +178,26 @@ const VentaporCajero = () => {
           </Button>
         </div>
       </div>
-      {obtenerVentaUsuarioPorCajero.length === 0 ? (
-        <p className={`${lusitana.className} mt-3 text-2xl text-center md:text-2xl`}>No hay ventas del cajero seleccionado</p>
-      ) : (
-        <div>
-          {obtenerVentaUsuarioPorCajero.map((ventacajero) => (
-            <VentaCajero key={ventacajero.id} ventacajero={ventacajero} refetchVentaCajero={refetchVentaCajero} />
-          ))}
-        </div>
-      )}
+      <div>
+  {obtenerVentaUsuarioPorCajero.length === 0 ? (
+    <p className={`${lusitana.className} mt-3 text-2xl text-center md:text-2xl`}>No hay ventas del cajero seleccionada</p>
+  ) : (
+    <div>
+      {obtenerVentaUsuarioPorCajero.map((ventacajero) => (
+        <VentaCajero key={ventacajero.id} ventacajero={ventacajero} refetchVentaCajero={refetchVentaCajero} />
+      ))}
+        <div className="flex justify-between mt-5">
+        <Button onClick={previousPage} disabled={page === 1}>
+          Anterior
+        </Button>
+        <span>Página {page}</span>
+        <Button onClick={nextPage} disabled={obtenerVentaUsuarioPorCajero.length < 100}>
+          Siguiente
+        </Button>
+      </div>
+    </div>
+  )}
+</div>
     </div>
   );
 };

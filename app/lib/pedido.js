@@ -13,8 +13,8 @@ const ELIMINAR_PEDIDO = gql`
 `
 
 const OBTENER_PEDIDOS = gql`
-query ObtenerPedidosCajeroPorFecha($fecha: String!, $limit: Int!, $offset: Int!) {
-  obtenerPedidosCajeroPorFecha(fecha: $fecha, limit: $limit, offset: $offset) {
+query ObtenerPedidosCajeroPorFecha {
+  obtenerPedidosCajeroPorFecha {
     id
     cliente {
       id
