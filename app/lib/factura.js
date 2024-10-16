@@ -17,7 +17,7 @@ mutation EliminarFactura($id: ID!) {
 
 const Factura = ({factura,refetchFactura}) => {
 
-    const {id, numero,empresa,total } = factura;
+    const { numero,empresa,total,creado } = factura;
     
 
     const [eliminarFactura] = useMutation(ELIMINAR_FACTURA, {
@@ -76,6 +76,10 @@ const Factura = ({factura,refetchFactura}) => {
 
                 <p className={`${lusitana.className}text-gray-800 mt-3 font-bold `}>Total:
                 <span className="text-lg text-gray-600"> $ {total}</span>
+                </p>
+
+                <p className={`${lusitana.className}text-gray-800 mt-3 font-bold `}>Fecha creación:
+                <span className="text-lg text-gray-600"> {creado}</span>
                 </p>
             
                 <Button

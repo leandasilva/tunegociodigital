@@ -145,6 +145,9 @@ const PedidosPorCajero = () => {
             <Button onClick={handleAnterior} disabled={pagina === 1}>
               Anterior
             </Button>
+            <span className="px-4 py-2 text-lg font-semibold text-gray-700 bg-gray-200 rounded-md">
+              Página {pagina}
+            </span>
             <Button onClick={handleSiguiente}>
               Siguiente
             </Button>

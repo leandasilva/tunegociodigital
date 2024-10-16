@@ -16,6 +16,7 @@ mutation NuevaFactura($input: FacturaInput) {
       numero
       empresa
       total
+      creado
       user
     }
   }

@@ -141,6 +141,9 @@ const PedidosPorFecha = () => {
             >
               Anterior
             </Button>
+            <span className=" px-4 py-2 text-lg font-semibold text-gray-700 bg-gray-200 rounded-md">
+              Página {paginaActual}
+            </span>
             <Button
               onClick={avanzarPagina}
               disabled={obtenerPedidosUsuarioPorFecha.length < pedidosPorPagina}

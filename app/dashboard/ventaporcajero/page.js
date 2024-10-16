@@ -190,7 +190,9 @@ const previousPage = () => {
         <Button onClick={previousPage} disabled={page === 1}>
           Anterior
         </Button>
-        <span>Página {page}</span>
+        <span className="px-4 py-2 text-lg font-semibold text-gray-700 bg-gray-200 rounded-md">
+          Página {page}
+        </span>
         <Button onClick={nextPage} disabled={obtenerVentaUsuarioPorCajero.length < 100}>
           Siguiente
         </Button>

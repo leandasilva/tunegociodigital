@@ -16,6 +16,7 @@ query ObtenerFacturas($empresa: String!, $limit: Int, $offset: Int) {
     numero
     empresa
     total
+    creado
     user
   }
 }
@@ -181,7 +182,9 @@ const Facturas = () => {
         >
           Anterior
         </Button>
-        <span>Página {pagina}</span>
+        <span className="mt-3 px-4 py-2 text-lg font-semibold text-gray-700 bg-gray-200 rounded-md">
+         Página {pagina}
+       </span>
         <Button 
           onClick={() => setPagina(pagina + 1)} 
           className="mt-3 px-3 py-2 border rounded-md"
