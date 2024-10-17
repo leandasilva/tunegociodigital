@@ -245,7 +245,7 @@ const NuevoPedido = () => {
 
   return (
     <>
-      <h1 className={`${lusitana.className} text-2xl text-gray-800 font-light mt-5 mb-5 text-center`}>Crear Nuevo Pedido</h1>
+      <h1 className={`${lusitana.className} text-2xl text-gray-800 font-light mt-5 mb-5 text-center`}>Crear Nueva Venta</h1>
 
       {mensaje && (
         <div className="bg-white py-2 px-3 w-full my-3 max-w-sm text-center mx-auto">
@@ -314,7 +314,7 @@ const NuevoPedido = () => {
             onClick={crearNuevoPedido}
             disabled={!productos.every((producto) => producto.cantidad > 0) || total === 0 || cliente.length === 0}
           >
-            Registrar Pedido
+            Registrar Venta
           </button>
           <button
             type="button"

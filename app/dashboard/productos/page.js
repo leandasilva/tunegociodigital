@@ -71,7 +71,7 @@ const Productos = () => {
       <div className="flex items-center mb-4">
         <input
           type="text"
-          placeholder="Nombre de producto o código..."
+          placeholder="Ingrese codigo o nombre del producto..."
           className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)} // Permitir ingreso libre

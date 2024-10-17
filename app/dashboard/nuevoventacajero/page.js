@@ -107,7 +107,7 @@ const NuevoVentaCajero = () => {
       <h2 className={`${lusitana.className}text-gray-800 font-bold mt-2`}>Resumen de venta total de la jornada</h2>
       {data.obtenerResumen.map(articulo => (
         <div key={articulo.id} className="mt-4">
-          <p className={`${lusitana.className}text-sm`}>Razon Social: {articulo.nombre} </p>
+          <p className={`${lusitana.className}text-sm`}>Cliente/Forma de pago: {articulo.nombre} </p>
           <p className="text-sm text-gray-600">Total: $ {articulo.total} </p>
         </div>
       ))}
@@ -115,7 +115,7 @@ const NuevoVentaCajero = () => {
       {showCerrarCaja && ( // Mostrar el botón de "Cerrar Caja" si showCerrarCaja es true
         <Button className="mt-5" onClick={NuevaVentadelCajero}>Cerrar Caja</Button>
       )}
-      <Button className="mt-5" onClick={handleRefresh}>Refrescar ventas</Button>
+      <Button className="mt-5" onClick={handleRefresh}>Actualizar montos</Button>
     </div>
   );
 };

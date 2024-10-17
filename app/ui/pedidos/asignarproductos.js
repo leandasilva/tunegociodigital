@@ -59,7 +59,7 @@ const AsignarProductos = () => {
                 isMulti={true}
                 getOptionValue={ opciones => opciones.id }
                 getOptionLabel={ opciones => `${opciones.nombre} - ${opciones.codigo} - ${opciones.existencia} Disponibles` }
-                placeholder="Busque o Seleccione el Producto"
+                placeholder="Ingrese codigo o nombre del producto..."
                 noOptionsMessage={() => "No hay resultados"}
             />
 
