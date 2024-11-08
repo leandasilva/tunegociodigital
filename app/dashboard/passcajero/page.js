@@ -50,12 +50,12 @@ const ModificarPassCajero = () => {
           nuevoPassword,
         },
       });
-      guardarMensaje('Password modificado exitosamente');
+      guardarMensaje('Contraseña modificado exitosamente');
       setTimeout(() => {
         guardarMensaje(null);
       }, 2000);
     } catch (error) {
-      guardarMensaje('Hubo un error al modificar el password:', error.message);
+      guardarMensaje('Hubo un error al modificar la contraseña:', error.message);
       setTimeout(() => {
         guardarMensaje(null);
       }, 2000);
