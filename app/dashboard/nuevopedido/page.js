@@ -279,7 +279,7 @@ const NuevoPedido = () => {
      {/* Mostrar el total con el descuento aplicado */}
      <div className="flex items-center mt-5 justify-between bg-white p-3 ">
         <h2 className="text-gray-800 text-lg">Total con Descuento:</h2>
-        <p className="text-gray-800 mt-0 ">$ {totalConDescuento}</p>
+        <p className="text-gray-800 mt-0 ">$ {totalConDescuento.toFixed(2)}</p>
      </div>
 
     <div className="mt-4 flex items-center">
@@ -304,7 +304,7 @@ const NuevoPedido = () => {
       {/* Mostrar el total restante */}
       <div className="flex items-center mt-5 justify-between bg-white p-3 ">
             <h2 className="text-gray-800 text-lg">Dar Vuelto: </h2>
-            <p className="text-gray-800 mt-0 ">$ {totalRestante}</p>
+            <p className="text-gray-800 mt-0 ">$ {totalRestante.toFixed(2)}</p>
         </div>
 
           <button

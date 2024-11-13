@@ -131,7 +131,7 @@ const Balance: React.FC = () => {
       {/* Stats Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <div className="bg-white p-5 rounded-lg shadow">
-          <h2 className="text-2xl font-bold">${balance.ganancia}</h2>
+          <h2 className="text-2xl font-bold">${balance.ganancia.toFixed(2)}</h2>
           <p>Ganancia en el mes</p>
         </div>
         <div className="bg-white p-5 rounded-lg shadow">
