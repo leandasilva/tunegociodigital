@@ -135,11 +135,11 @@ const Balance: React.FC = () => {
           <p>Ganancia en el mes</p>
         </div>
         <div className="bg-white p-5 rounded-lg shadow">
-          <h2 className="text-2xl font-bold">${balance.venta}</h2>
+          <h2 className="text-2xl font-bold">${balance.venta.toFixed(2)}</h2>
           <p>Ventas Totales</p>
         </div>
         <div className="bg-white p-5 rounded-lg shadow">
-          <h2 className="text-2xl font-bold">${balance.totalGasto}</h2>
+          <h2 className="text-2xl font-bold">${balance.totalGasto.toFixed(2)}</h2>
           <p>Gastos Totales</p>
         </div>
         <div className="bg-white p-5 rounded-lg shadow">
