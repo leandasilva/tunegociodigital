@@ -12,43 +12,45 @@ import {
 } from '@heroicons/react/24/outline';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
-const MODIFICAR_PASS = gql`
-  mutation ModificarPasswordUsuario($email: String!, $newPassword: String!) {
-    modificarPasswordUsuario(email: $email, newPassword: $newPassword)
+const MODIFICAR_PASS_CAJERO = gql`
+  mutation ModificarPasswordCajero($email: String!, $nuevoPassword: String!) {
+    modificarPasswordCajero(email: $email, nuevoPassword: $nuevoPassword)
   }
 `;
 
-const OBTENER_USUARIOS = gql`
-  query obtenerUsuarios {
-    obtenerUsuarios {
+const OBTENER_CAJEROS = gql`
+  query ObtenerCajeroUsuario {
+    obtenerCajeroUsuario {
       id
       nombre
-      apellido
       email
       empresa
-      telefono
+      password
       estado
+      entrada
+      salida
+      user
       admin
     }
   }
 `;
 
-const ModificarPass = () => {
+const ModificarPassCajeroUser = () => {
   const [mostrarPassword, setMostrarPassword] = useState(false);
   const [email, setEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [modificarPasswordUsuario] = useMutation(MODIFICAR_PASS);
-  const { loading: usersLoading, error: usersError, data: usersData } = useQuery(OBTENER_USUARIOS);
+  const [nuevoPassword, setNewPassword] = useState('');
+  const [modificarPasswordCajero] = useMutation(MODIFICAR_PASS_CAJERO);
+  const { loading: cajerosLoading, error: cajerosError, data: cajerosData } = useQuery(OBTENER_CAJEROS);
 
   const [mensaje, guardarMensaje] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await modificarPasswordUsuario({
+      await modificarPasswordCajero({
         variables: {
           email,
-          newPassword,
+          nuevoPassword,
         },
       });
       guardarMensaje('Contraseña modificado exitosamente');
@@ -63,16 +65,13 @@ const ModificarPass = () => {
     }
   };
 
-  if (usersLoading) return <p>Loading...</p>;
-  if (usersError) return <p>Error...</p>;
 
-  const usuarios = usersData.obtenerUsuarios;
+  if (cajerosLoading) return <p>Loading...</p>;
+  if (cajerosError) return <p>Error...</p>;
 
-  const allEmails = usuarios.map(user => user.email);
+  const cajeros = cajerosData.obtenerCajeroUsuario;
 
-  const toggleMostrarPassword = () => {
-    setMostrarPassword(!mostrarPassword);
-  };
+  const allEmails = cajeros.map(cajero => cajero.email);
 
   const mostrarMensaje = () => {
     return (
@@ -82,9 +81,14 @@ const ModificarPass = () => {
     );
   };
 
+  const toggleMostrarPassword = () => {
+    setMostrarPassword(!mostrarPassword);
+  };
+
+
   return (
     <div className="mx-auto max-w-lg">
-      <h1 className={`${lusitana.className} text-2xl text-gray-800 font-light mt-5 mb-5 text-center`}>Modificar Contraseña Usuario</h1>
+      <h1 className={`${lusitana.className} text-2xl text-gray-800 font-light mt-5 mb-5 text-center`}>Modificar Contraseña Cajero</h1>
       {mensaje && mostrarMensaje()}
       <form onSubmit={handleSubmit} className="space-y-4">
         <select
@@ -103,7 +107,7 @@ const ModificarPass = () => {
           placeholder="Nueva Contraseña"
           id= 'password'
           type={mostrarPassword ? 'text' : 'password'} 
-          value={newPassword}
+          value={nuevoPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           required
           className="block w-full border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200"
@@ -133,4 +137,4 @@ const ModificarPass = () => {
   );
 };
 
-export default ModificarPass;
+export default ModificarPassCajeroUser;

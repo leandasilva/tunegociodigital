@@ -130,6 +130,7 @@ const Balance: React.FC = () => {
     <div className="p-5 bg-gray-100">
       {/* Stats Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+<<<<<<< HEAD
         <div className="bg-white p-5 text-center rounded-lg shadow">
           <h2 className="text-2xl font-bold">${balance.ganancia}</h2>
           <p>Ganancia en el mes</p>
@@ -141,6 +142,19 @@ const Balance: React.FC = () => {
         <div className="bg-white p-5 text-center rounded-lg shadow">
           <h2 className="text-2xl font-bold">${balance.totalGasto}</h2>
           <p>Gastos totales mensual</p>
+=======
+        <div className="bg-white p-5 rounded-lg shadow">
+          <h2 className="text-2xl font-bold">${balance.ganancia.toFixed(2)}</h2>
+          <p>Ganancia en el mes</p>
+        </div>
+        <div className="bg-white p-5 rounded-lg shadow">
+          <h2 className="text-2xl font-bold">${balance.venta.toFixed(2)}</h2>
+          <p>Ventas Totales</p>
+        </div>
+        <div className="bg-white p-5 rounded-lg shadow">
+          <h2 className="text-2xl font-bold">${balance.totalGasto.toFixed(2)}</h2>
+          <p>Gastos Totales</p>
+>>>>>>> origin
         </div>
         <div className="bg-white p-5 text-center rounded-lg shadow">
           <h2 className="text-2xl font-bold">{balance.total}</h2>

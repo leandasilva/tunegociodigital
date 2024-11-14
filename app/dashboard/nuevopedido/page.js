@@ -1,15 +1,15 @@
 "use client"
 
-import React, { useContext, useState, useEffect } from 'react';
+import React, {Suspense, useContext, useState, useEffect } from 'react';
 import { gql, useMutation, useQuery, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 import PedidoContext from '@/app/ui/context/pedidocontext';
 import AsignarCliente from '@/app/ui/pedidos/asignarcliente';
-import AsignarProductos from '@/app/ui/pedidos/asignarproductos';
 import ResumenPedido from '@/app/ui/pedidos/resumenpedido';
 import Total from '@/app/ui/pedidos/total';
 import { lusitana } from '@/app/ui/fonts';
+const AsignarProductos = React.lazy(() => import('@/app/ui/pedidos/asignarproductos'));
 
 const NUEVO_PEDIDO = gql`
 mutation NuevoPedido($input: PedidoInput) {
@@ -86,6 +86,7 @@ const OBTENER_CLIENTES_USUARIO = gql`
     }
   }
 `;
+
 
 const NuevoPedido = () => {
   const [descuentoPorcentaje, setDescuentoPorcentaje] = useState(0);
@@ -256,7 +257,9 @@ const NuevoPedido = () => {
       <div className="flex justify-center mt-5">
         <div className="w-full max-w-lg">
           <AsignarCliente />
-          <AsignarProductos />
+          <Suspense fallback={<div className="loader">Cargando productos...</div>}>
+                <AsignarProductos />
+          </Suspense>
           <ResumenPedido />
           <Total />
       <div className="mt-4 flex items-center">
@@ -276,7 +279,7 @@ const NuevoPedido = () => {
      {/* Mostrar el total con el descuento aplicado */}
      <div className="flex items-center mt-5 justify-between bg-white p-3 ">
         <h2 className="text-gray-800 text-lg">Total con Descuento:</h2>
-        <p className="text-gray-800 mt-0 ">$ {totalConDescuento}</p>
+        <p className="text-gray-800 mt-0 ">$ {totalConDescuento.toFixed(2)}</p>
      </div>
 
     <div className="mt-4 flex items-center">
@@ -301,7 +304,7 @@ const NuevoPedido = () => {
       {/* Mostrar el total restante */}
       <div className="flex items-center mt-5 justify-between bg-white p-3 ">
             <h2 className="text-gray-800 text-lg">Dar Vuelto: </h2>
-            <p className="text-gray-800 mt-0 ">$ {totalRestante}</p>
+            <p className="text-gray-800 mt-0 ">$ {totalRestante.toFixed(2)}</p>
         </div>
 
           <button

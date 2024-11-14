@@ -101,6 +101,9 @@ const NuevoVentaCajero = () => {
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  // Redondear el total a dos decimales
+  //const totalRedondeado = totalVentas.toFixed(2);
+
   return (
     <div>
       <h2 className={`${lusitana.className} mt-5 mb-5 text-xl md:text-2xl`}>Cierre de Caja</h2>
@@ -111,7 +114,7 @@ const NuevoVentaCajero = () => {
           <p className="text-sm text-gray-600">Total: $ {articulo.total} </p>
         </div>
       ))}
-      <p className="text-xl mt-4">Total de Ventas: $ {totalVentas}</p>
+      <p className="text-xl mt-4">Total de Ventas: $ {totalVentas.toFixed(2)}</p>
       {showCerrarCaja && ( // Mostrar el botón de "Cerrar Caja" si showCerrarCaja es true
         <Button className="mt-5" onClick={NuevaVentadelCajero}>Cerrar Caja</Button>
       )}

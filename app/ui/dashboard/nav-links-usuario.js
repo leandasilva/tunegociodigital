@@ -1,7 +1,7 @@
 import {
     UserGroupIcon,
     HomeIcon,UserIcon,CircleStackIcon,PrinterIcon,
-    DocumentDuplicateIcon,UserCircleIcon,ChartBarIcon,ShoppingBagIcon,ShoppingCartIcon
+    DocumentDuplicateIcon,UserCircleIcon,ChartBarIcon,ShoppingBagIcon,ShoppingCartIcon,KeyIcon,UsersIcon
   } from '@heroicons/react/24/outline';
   import Link from 'next/link';
   import {useRouter} from 'next/navigation';
@@ -12,7 +12,9 @@ import {
   const links = [
     //{ name: 'Home', href: '/dashboard', icon: HomeIcon },
     { name: 'Mis Datos', href: '/dashboard/usuario', icon: UserCircleIcon },
-    { name: 'Cajeros',href: '/dashboard/cajerosporusuario', icon: UserGroupIcon},
+    { name: 'Cambiar Mi Contraseña',href: '/dashboard/passusuariouser',icon:KeyIcon},
+    { name: 'Cambiar Contraseña Cajero',href: '/dashboard/passcajerousuario',icon:KeyIcon},
+    { name: 'Cajeros',href: '/dashboard/cajerosporusuario', icon: UsersIcon},
     { name: 'Clientes/Forma de pago', href: '/dashboard/clientes', icon: UserGroupIcon },
     { name: 'Proveedores', href: '/dashboard/proveedores', icon: UserGroupIcon },
     { name: 'Facturas Guardadas', href: '/dashboard/facturas', icon: CircleStackIcon },
