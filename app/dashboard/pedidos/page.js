@@ -17,6 +17,7 @@ query ObtenerPedidosCajeroPorFecha($fecha: String!) {
     }
     pedido {
       nombre
+      costo
       precio
       cantidad
     }

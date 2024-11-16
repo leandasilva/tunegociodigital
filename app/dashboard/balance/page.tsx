@@ -39,6 +39,7 @@ const OBTENER_PEDIDOS = gql`
       pedido {
         id
         nombre
+        costo
         precio
         cantidad
       }
@@ -47,6 +48,7 @@ const OBTENER_PEDIDOS = gql`
         razonsocial
         user
       }
+      totalCosto
       total
       user
       cajero
@@ -61,6 +63,7 @@ const OBTENER_REPORTE = gql`
     obtenerReporte {
       id
       ventaReporte
+      totalCostoReporte
       totalGastoReporte
       cantidadVenta
       user
@@ -104,6 +107,7 @@ const Balance: React.FC = () => {
   // Extraer los datos del reporte (ventaReporte y totalGastoReporte)
   const totalVentaReporte = reporteData?.obtenerReporte?.ventaReporte || 0;
   const totalGastoReporte = reporteData?.obtenerReporte?.totalGastoReporte || 0;
+  const totalCostoReporte = reporteData?.obtenerReporte?.totalCostoReporte || 0;
   const cantidadVenta = reporteData?.obtenerReporte?.cantidadVenta || 0;
 
   // Calcular el balance a partir de los datos del reporte
@@ -111,6 +115,7 @@ const Balance: React.FC = () => {
     ganancia: totalVentaReporte - totalGastoReporte,
     venta: totalVentaReporte,
     totalGasto: totalGastoReporte,
+    totalCosto: totalCostoReporte,
     total: cantidadVenta,
   };
 
@@ -120,41 +125,32 @@ const Balance: React.FC = () => {
   }));
 
   // Extraer datos de la gráfica de balance
-  const clienteGrafica = balanceData?.obtenerBalance.map((balance: { venta: any; totalGasto: any; creado: string }) => ({
+  const clienteGrafica = balanceData?.obtenerBalance.map((balance: { venta: any; totalGasto: any;totalCosto:any; creado: string }) => ({
     name: balance.creado, // Formatear la fecha
     totalVenta: balance.venta,
+    totalCosto: balance.totalCosto,
     totalGasto: balance.totalGasto,
   }));
 
   return (
     <div className="p-5 bg-gray-100">
       {/* Stats Section */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-<<<<<<< HEAD
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <div className="bg-white p-5 text-center rounded-lg shadow">
-          <h2 className="text-2xl font-bold">${balance.ganancia}</h2>
-          <p>Ganancia en el mes</p>
-        </div>
-        <div className="bg-white p-5 text-center rounded-lg shadow">
-          <h2 className="text-2xl  font-bold">${balance.venta}</h2>
-          <p>Ventas totales mensual</p>
-        </div>
-        <div className="bg-white p-5 text-center rounded-lg shadow">
-          <h2 className="text-2xl font-bold">${balance.totalGasto}</h2>
-          <p>Gastos totales mensual</p>
-=======
-        <div className="bg-white p-5 rounded-lg shadow">
           <h2 className="text-2xl font-bold">${balance.ganancia.toFixed(2)}</h2>
           <p>Ganancia en el mes</p>
         </div>
-        <div className="bg-white p-5 rounded-lg shadow">
-          <h2 className="text-2xl font-bold">${balance.venta.toFixed(2)}</h2>
-          <p>Ventas Totales</p>
+        <div className="bg-white p-5 text-center rounded-lg shadow">
+          <h2 className="text-2xl  font-bold">${balance.venta.toFixed(2)}</h2>
+          <p>Ventas totales mensual</p>
         </div>
-        <div className="bg-white p-5 rounded-lg shadow">
+        <div className="bg-white p-5 text-center rounded-lg shadow">
+          <h2 className="text-2xl font-bold">${balance.totalCosto.toFixed(2)}</h2>
+          <p>Venta Total del costo mensual</p>
+        </div>
+        <div className="bg-white p-5 text-center rounded-lg shadow">
           <h2 className="text-2xl font-bold">${balance.totalGasto.toFixed(2)}</h2>
-          <p>Gastos Totales</p>
->>>>>>> origin
+          <p>Gastos totales mensual</p>
         </div>
         <div className="bg-white p-5 text-center rounded-lg shadow">
           <h2 className="text-2xl font-bold">{balance.total}</h2>
@@ -162,26 +158,26 @@ const Balance: React.FC = () => {
         </div>
       </div>
 
-     {/* Gráfico de Balance con scroll horizontal */}
-     <div className="bg-white p-5 rounded-lg shadow mb-6 overflow-x-auto">
-        <div style={{ minWidth: window.innerWidth > 768 ? '600px' : '400px' }}>
-          <BarChart
-            width={600} // Ajuste del ancho fijo para permitir el desbordamiento
-            height={300}
-            data={clienteGrafica}
-            className="mx-auto"
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="totalVenta" fill="#82ca9d" name="Total Venta" />
-            <Bar dataKey="totalGasto" fill="#8884d8" name="Total Gasto" />
-          </BarChart>
-        </div>
-      </div>
-
+    {/* Gráfico de Balance con scroll horizontal */}
+<div className="bg-white p-5 rounded-lg shadow mb-6 overflow-x-auto">
+  <div style={{ minWidth: window.innerWidth > 768 ? '600px' : '400px' }}>
+    <BarChart
+      width={600} // Ajuste del ancho fijo para permitir el desbordamiento
+      height={300}
+      data={clienteGrafica}
+      className="mx-auto"
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Bar dataKey="totalVenta" fill="#82ca9d" name="Total Venta" />
+      <Bar dataKey="totalCosto" fill="#FFBB28" name="Total Costo" />
+      <Bar dataKey="totalGasto" fill="#8884d8" name="Total Gasto" />
+    </BarChart>
+  </div>
+</div>
       {/* Gráfico de Clientes con scroll horizontal */}
       <div className="bg-white p-5 rounded-lg shadow overflow-x-auto">
         <div style={{ minWidth: window.innerWidth > 768 ? '600px' : '400px' }}>

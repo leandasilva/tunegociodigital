@@ -12,6 +12,7 @@ const OBTENER_PRODUCTOS = gql`
       id
       nombre
       precio
+      costo
       existencia
       codigo
       estado
@@ -90,9 +91,10 @@ const Productos = () => {
                   <tr>
                     <th scope="col" className="px-4 py-5 font-medium sm:pl-6">Nombre</th>
                     <th scope="col" className="px-3 py-5 font-medium">Existencia</th>
+                    <th scope="col" className="px-3 py-5 font-medium">Costo</th>
                     <th scope="col" className="px-3 py-5 font-medium">Precio</th>
+                    <th scope="col" className="px-3 py-5 font-medium">Estado</th>
                     <th scope="col" className="px-4 py-5 font-medium">Código</th>
-                    <th scope="col" className="px-4 py-5 font-medium">Estado</th>
                     <th scope="col" className="px-4 py-5 font-medium">Eliminar</th>
                     <th scope="col" className="px-4 py-5 font-medium">Editar</th>
                   </tr>

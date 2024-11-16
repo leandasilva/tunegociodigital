@@ -11,6 +11,7 @@ query ObtenerProductosCajero {
     obtenerProductosCajero {
       id
       nombre
+      costo
       precio
       existencia
       codigo
@@ -58,15 +59,9 @@ const AsignarProductos = () => {
                 options={productoFiltrados}
                 onChange={(opcion) => seleccionarProducto(opcion)}
                 isMulti={true}
-<<<<<<< HEAD
-                getOptionValue={ opciones => opciones.id }
-                getOptionLabel={ opciones => `${opciones.nombre} - ${opciones.codigo} - ${opciones.existencia} Disponibles` }
-                placeholder="Ingrese codigo o nombre del producto..."
-=======
                 getOptionValue={(opciones) => opciones.id}
                 getOptionLabel={(opciones) => `${opciones.nombre} - ${opciones.codigo} - ${opciones.existencia} Disponibles`}
                 placeholder="Busque o Seleccione el Producto"
->>>>>>> origin
                 noOptionsMessage={() => "No hay resultados"}
                 isLoading={loading}  // Agrega el indicador de carga aquí
             />

@@ -14,6 +14,7 @@ const OBTENER_PRODUCTO = gql`
             id
             nombre
             precio
+            costo
             existencia
             codigo
             estado
@@ -27,6 +28,7 @@ const ACTUALIZAR_PRODUCTO = gql`
                 id
                 nombre
                 existencia
+                costo
                 precio
                 codigo
                 estado
@@ -41,6 +43,7 @@ query ObtenerProductosUsuario {
       id
       nombre
       precio
+      costo
       existencia
       codigo
       estado
@@ -80,6 +83,9 @@ const EditarProducto = ({params}) => {
                     .required('Agrega la cantidad disponible')
                     .positive('No se aceptan números negativos')
                     .integer('La existencia deben ser números enteros'),
+        costo: Yup.number()
+                    .required('El precio es obligatorio')
+                    .positive('No se aceptan números negativos'),
         precio: Yup.number()
                     .required('El precio es obligatorio')
                     .positive('No se aceptan números negativos')
@@ -98,7 +104,7 @@ const EditarProducto = ({params}) => {
 
     const actualizarInfoProducto = async valores => {
         // console.log(valores);
-        const { nombre, existencia, precio, codigo,estado ,creado} = valores;
+        const { nombre, existencia,costo, precio, codigo,estado ,creado} = valores;
         try {
             const {data} =  await actualizarProducto({
                 variables: {
@@ -106,6 +112,7 @@ const EditarProducto = ({params}) => {
                     input: {
                         nombre,
                         existencia,
+                        costo,
                         precio,
                         codigo,
                         estado,
@@ -175,7 +182,7 @@ const EditarProducto = ({params}) => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="nombre"
                                     type="text"
-                                    placeholder="Nombre Producto"
+                                    placeholder="Nombre del Producto..."
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
                                     value={props.values.nombre}
@@ -198,7 +205,7 @@ const EditarProducto = ({params}) => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="existencia"
                                     type="number"
-                                    placeholder="Cantidad Disponible"
+                                    placeholder="Cantidad Disponible..."
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
                                     value={props.values.existencia}
@@ -210,7 +217,30 @@ const EditarProducto = ({params}) => {
                                     <p className="font-bold">Error</p>
                                     <p>{props.errors.existencia}</p>
                                 </div>
-                            ) : null  } 
+                            ) : null  }
+
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="costo">
+                                    Costo
+                                </label>
+
+                                <input
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="costo"
+                                    type="number"
+                                    placeholder="Costo del Producto..."
+                                    onChange={props.handleChange}
+                                    onBlur={props.handleBlur}
+                                    value={props.values.costo}
+                                />
+                            </div>
+
+                            { props.touched.costo && props.errors.costo ? (
+                                <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
+                                    <p className="font-bold">Error</p>
+                                    <p>{props.errors.costo}</p>
+                                </div>
+                            ) : null  }  
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="precio">
@@ -221,7 +251,7 @@ const EditarProducto = ({params}) => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="precio"
                                     type="number"
-                                    placeholder="Precio Producto"
+                                    placeholder="Precio del Producto..."
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
                                     value={props.values.precio}
@@ -244,7 +274,7 @@ const EditarProducto = ({params}) => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="codigo"
                                     type="string"
-                                    placeholder="Codigo Producto"
+                                    placeholder="Codigo del Producto..."
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
                                     value={props.values.codigo}

@@ -10,6 +10,7 @@
 export const SELECCIONAR_CLIENTE = 'SELECCIONAR_CLIENTE';
 export const SELECCIONAR_PRODUCTO = 'SELECCIONAR_PRODUCTO';
 export const CANTIDAD_PRODUCTOS = 'CANTIDAD_PRODUCTOS';
+export const ACTUALIZAR_TOTALCOSTO = 'ACTUALIZAR_TOTALCOSTO';
 export const ACTUALIZAR_TOTAL = 'ACTUALIZAR_TOTAL';
 
 
@@ -29,6 +30,11 @@ export default ( state, action ) => {
             return {
                 ...state,
                 productos: state.productos.map( producto => producto.id === action.payload.id ? producto = action.payload : producto )
+            }
+        case ACTUALIZAR_TOTALCOSTO:
+            return {
+                ...state,
+                totalCosto: state.productos.reduce( (nuevoTotalCosto, articulo) => nuevoTotalCosto += articulo.costo * articulo.cantidad, 0 )
             }
         case ACTUALIZAR_TOTAL:
             return {

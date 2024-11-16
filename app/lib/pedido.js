@@ -23,9 +23,11 @@ query ObtenerPedidosCajeroPorFecha {
     }
     pedido {
       nombre
+      costo
       precio
       cantidad
     }
+    costo
     total
     cajero
     nombre

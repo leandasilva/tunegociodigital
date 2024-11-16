@@ -19,9 +19,11 @@ mutation NuevoPedido($input: PedidoInput) {
       id
       cantidad
       nombre
+      costo
       precio
       codigo
     }
+    totalCosto
     total
     nombre
     cajero
@@ -37,6 +39,7 @@ mutation NuevoResumen($input: ResumenInput) {
   nuevoResumen(input: $input) {
     id
     nombre
+    costo
     total
     cliente
   }
@@ -70,6 +73,7 @@ query ObtenerProductosCajero {
   obtenerProductosCajero {
     id
     nombre
+    costo
     precio
     existencia
     estado
@@ -90,13 +94,15 @@ const OBTENER_CLIENTES_USUARIO = gql`
 
 const NuevoPedido = () => {
   const [descuentoPorcentaje, setDescuentoPorcentaje] = useState(0);
+  const [ivaPorcentaje, setIvaPorcentaje] = useState(0); // Nuevo estado para IVA
+  const [usarIva, setUsarIva] = useState(false);
   const [fecha, setFechaSeleccionada] = useState("");
   const [mensaje, setMensaje] = useState(null);
   const [montoIngresado, setMontoIngresado] = useState(0);
   const router = useRouter();
   const client = useApolloClient();
   const pedidoContext = useContext(PedidoContext);
-  const { cliente, productos, total } = pedidoContext;
+  const { cliente, productos,totalCosto, total } = pedidoContext;
 
   useEffect(() => {
     const today = new Date();
@@ -173,7 +179,8 @@ const NuevoPedido = () => {
         variables: {
           input: {
             cliente: id,
-            total:totalConDescuento,
+            totalCosto: totalCosto,
+            total:totalActivo,
             pedido,
           },
         },
@@ -230,8 +237,17 @@ const NuevoPedido = () => {
     setDescuentoPorcentaje(parseFloat(value)); // Convertir el valor a tipo float
   };
 
-  // Calcular el total con el descuento aplicado
-  const totalConDescuento = total - (total * descuentoPorcentaje / 100);
+
+  const totalConDescuento = total - (total * descuentoPorcentaje) / 100;
+  const totalConIva = total + (total * ivaPorcentaje) / 100;
+  const totalActivo = usarIva ? totalConIva : totalConDescuento;
+
+  const totalRestante = montoIngresado - totalActivo;
+   // Manejar cambio en el IVA
+   const handleIvaChange = (event) => {
+     const { value } = event.target;
+     setIvaPorcentaje(parseFloat(value)); // Convertir el valor a float
+   };
 
 
    // Función para manejar el cambio en el input de monto ingresado
@@ -240,8 +256,7 @@ const NuevoPedido = () => {
     setMontoIngresado(parseFloat(value)); // Convertir el valor a tipo float
   };
 
-  // Calcular el total restante
-  const totalRestante = montoIngresado - totalConDescuento;
+  
   
 
   return (
@@ -282,31 +297,67 @@ const NuevoPedido = () => {
         <p className="text-gray-800 mt-0 ">$ {totalConDescuento.toFixed(2)}</p>
      </div>
 
-    <div className="mt-4 flex items-center">
-        <label htmlFor="montoIngresado" className="block text-sm font-medium text-gray-700 mr-2">
-          Monto Recibido
-        </label>
-      <div className="relative">
-          <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 sm:text-sm">
-            $
-          </span>
-          <input
-            type="number"
-            id="montoIngresado"
-            name="montoIngresado"
-            className="mt-1 p-2 pl-10 border border-gray-300 rounded-md w-full"
-            value={montoIngresado}
-            onChange={handleMontoIngresadoChange}
-          />
-      </div>
-    </div>
+     {/* Toggle IVA o Descuento */}
+     <div className="mt-4 flex items-center">
+            <label htmlFor="usarIva" className="block text-sm font-medium text-gray-700 mr-2">
+              Usar IVA
+            </label>
+            <input
+              type="checkbox"
+              id="usarIva"
+              name="usarIva"
+              className="mt-1 p-2 border border-gray-300 rounded-md"
+              checked={usarIva}
+              onChange={(e) => setUsarIva(e.target.checked)}
+            />
+          </div>
 
-      {/* Mostrar el total restante */}
-      <div className="flex items-center mt-5 justify-between bg-white p-3 ">
-            <h2 className="text-gray-800 text-lg">Dar Vuelto: </h2>
-            <p className="text-gray-800 mt-0 ">$ {totalRestante.toFixed(2)}</p>
-        </div>
+      {/* Campo para el IVA */}
+      <div className="mt-4 flex items-center">
+            <label htmlFor="ivaPorcentaje" className="block text-sm font-medium text-gray-700 mr-2">
+              IVA (%)
+            </label>
+            <input
+              type="number"
+              id="ivaPorcentaje"
+              name="ivaPorcentaje"
+              className="mt-1 p-2 pl-2 border border-gray-300 rounded-md w-full"
+              value={ivaPorcentaje}
+              onChange={handleIvaChange}
+            />
+          </div>
 
+      {/* Total dinámico */}
+      <div className="flex items-center mt-5 justify-between bg-white p-3">
+            <h2 className="text-gray-800 text-lg">Total con Iva:</h2>
+            <p className="text-gray-800 mt-0">$ {totalActivo.toFixed(2)}</p>
+          </div>
+
+          {/* Monto ingresado */}
+          <div className="mt-4 flex items-center">
+            <label htmlFor="montoIngresado" className="block text-sm font-medium text-gray-700 mr-2">
+              Monto Recibido
+            </label>
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 sm:text-sm">
+                $
+              </span>
+              <input
+                type="number"
+                id="montoIngresado"
+                name="montoIngresado"
+                className="mt-1 p-2 pl-10 border border-gray-300 rounded-md w-full"
+                value={montoIngresado}
+                onChange={(e) => setMontoIngresado(parseFloat(e.target.value))}
+              />
+            </div>
+          </div>
+
+          {/* Total restante */}
+          <div className="flex items-center mt-5 justify-between bg-white p-3">
+            <h2 className="text-gray-800 text-lg">Dar Vuelto:</h2>
+            <p className="text-gray-800 mt-0">$ {totalRestante.toFixed(2)}</p>
+          </div>
           <button
             type="button"
             className={`rounded-lg bg-gray-800 w-full mt-5 p-2 text-white uppercase font-bold hover:bg-gray-900 ${

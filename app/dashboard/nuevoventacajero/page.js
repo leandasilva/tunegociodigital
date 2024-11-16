@@ -11,15 +11,17 @@ const NUEVO_VENTA = gql`
 mutation NuevoVentaCajero($input: VentaCajeroInput) {
   nuevoVentaCajero(input: $input) {
     id
+    cajero
     clientes {
       id
       nombre
       total
+      costo
     }
-    cajero
-    user
-    totalVenta
     creado
+    totaCosto
+    totalVenta
+    user
   }
 }
 `;
@@ -29,6 +31,7 @@ query ObtenerResumen {
   obtenerResumen {
     id
     nombre
+    costo
     total
     cajero
     cliente
@@ -44,6 +47,7 @@ const NuevoVentaCajero = () => {
   
   const [nuevoVentaCajeroMutation] = useMutation(NUEVO_VENTA);
   const [showCerrarCaja, setShowCerrarCaja] = useState(false); // Estado para controlar la visibilidad del botón
+  const [totalCosto, setTotalCosto] = useState(0);
   const [totalVentas, setTotalVentas] = useState(0); // Estado para almacenar el total de ventas
 
   useEffect(() => {
@@ -51,6 +55,14 @@ const NuevoVentaCajero = () => {
       // Calcular el total de ventas al obtener los datos de los clientes
       const ventasTotales = data.obtenerResumen.reduce((total, cliente) => total + cliente.total, 0);
       setTotalVentas(ventasTotales);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (data) {
+      // Calcular el total de ventas al obtener los datos de los clientes
+      const ventasCostoTotales = data.obtenerResumen.reduce((costo, cliente) => costo + cliente.costo, 0);
+      setTotalCosto(ventasCostoTotales);
     }
   }, [data]);
 
@@ -73,8 +85,10 @@ const NuevoVentaCajero = () => {
                 clientes: data.obtenerResumen.map(resumen => ({
                   id: resumen.id,
                   nombre: resumen.nombre,
+                  costo: resumen.costo,
                   total: resumen.total
                 })),
+                totalCosto:totalCosto,
                 totalVenta: totalVentas // Pasar el total de ventas como parte de la mutación
               }
             }

@@ -19,6 +19,7 @@ const ELIMINAR_PRODUCTO = gql`
         id
         nombre
         precio
+        costo
         existencia
         codigo
         estado
@@ -92,9 +93,10 @@ const Producto = ({producto}) => {
         <tr>
             <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{producto.nombre} </td>
             <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{producto.existencia} Cantidades</td>
+            <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">$ {producto.costo} </td>
             <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">$ {producto.precio} </td>
-            <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{producto.codigo}</td>
             <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{producto.estado}</td>
+            <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{producto.codigo}</td>
             <td className="whitespace-nowrap  bg-white px-4 py-5 text-sm">
                 <TrashIcon type='button' className='w-7 h-7 ml-10 text-gray-500 cursor-pointer hover:text-gray-800' onClick={() => confirmarEliminarProducto() }></TrashIcon>
             </td>

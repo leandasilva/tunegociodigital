@@ -14,6 +14,7 @@ import PedidoReducer from './pedidoreducer';
 export const SELECCIONAR_CLIENTE = 'SELECCIONAR_CLIENTE';
 export const SELECCIONAR_PRODUCTO = 'SELECCIONAR_PRODUCTO';
 export const CANTIDAD_PRODUCTOS = 'CANTIDAD_PRODUCTOS';
+export const ACTUALIZAR_TOTALCOSTO = 'ACTUALIZAR_TOTALCOSTO';
 export const ACTUALIZAR_TOTAL = 'ACTUALIZAR_TOTAL';
 
 const PedidoState = ({children}) => {
@@ -23,6 +24,7 @@ const PedidoState = ({children}) => {
     const initialState = {
         cliente: {},
         productos: [],
+        totalCosto: 0,
         total: 0
     }
 
@@ -66,6 +68,12 @@ const PedidoState = ({children}) => {
         })
     }
 
+    const actualizarTotalCosto = () => {
+        dispatch({
+            type: ACTUALIZAR_TOTALCOSTO
+        })
+    }
+
     const actualizarTotal = () => {
         dispatch({
             type: ACTUALIZAR_TOTAL
@@ -78,10 +86,12 @@ const PedidoState = ({children}) => {
             value={{
                 cliente: state.cliente,
                 productos: state.productos,
+                totalCosto: state.totalCosto,
                 total: state.total,
                 agregarCliente,
                 agregarProducto,
                 cantidadProductos,
+                actualizarTotalCosto,
                 actualizarTotal
             }}
         > {children}

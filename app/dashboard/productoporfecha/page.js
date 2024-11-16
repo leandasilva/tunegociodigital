@@ -14,6 +14,7 @@ const OBTENER_PRODUCTOS = gql`
       id
       nombre
       precio
+      costo
       codigo
       estado
       existencia

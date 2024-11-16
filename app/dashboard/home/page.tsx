@@ -10,6 +10,7 @@ const NUEVO_BALANCE = gql`
     nuevoBalance(input: $input) {
       id
       venta
+      totalCosto
       totalGasto
       ganancia
       creado
@@ -24,6 +25,7 @@ const OBTENER_REPORTE = gql`
     obtenerReporte {
       id
       ventaReporte
+      totalCostoReporte
       totalGastoReporte
       user
     }
@@ -81,6 +83,7 @@ export default function Page() {
         if (result.isConfirmed) {
           // Extraer los valores de ventaReporte y totalGastoReporte
           const totalVenta = reporteData?.obtenerReporte?.ventaReporte || 0;
+          const totalCosto = reporteData?.obtenerReporte?.totalCostoReporte || 0;
           const totalGasto = reporteData?.obtenerReporte?.totalGastoReporte || 0;
 
           // Crear nuevo balance
@@ -88,6 +91,7 @@ export default function Page() {
             variables: {
               input: {
                 venta: totalVenta,
+                totalCosto: totalCosto,
                 totalGasto: totalGasto,
               },
             },

@@ -15,6 +15,7 @@ const NUEVO_PRODUCTO = gql`
             nombre
             existencia
             precio
+            costo
             codigo
             estado
             user
@@ -28,6 +29,7 @@ query ObtenerProductosUsuario {
       id
       nombre
       precio
+      costo
       existencia
       codigo
       estado
@@ -64,6 +66,7 @@ const NuevoProducto = () => {
             nombre: '',
             existencia: '',
             precio: '',
+            costo:'',
             codigo: '',
             estado: 'ACTIVO'
         }, 
@@ -74,6 +77,9 @@ const NuevoProducto = () => {
                         .required('Agrega la cantidad disponible')
                         .positive('No se aceptan números negativos')
                         .integer('La existencia deben ser números enteros'),
+            costo: Yup.number()
+                        .required('El costo es obligatorio')
+                        .positive('No se aceptan números negativos'),
             precio: Yup.number()
                         .required('El precio es obligatorio')
                         .positive('No se aceptan números negativos'),
@@ -132,7 +138,7 @@ const NuevoProducto = () => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="nombre"
                                     type="text"
-                                    placeholder="Nombre Producto"
+                                    placeholder="Nombre del Producto..."
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.nombre}
@@ -155,7 +161,7 @@ const NuevoProducto = () => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="existencia"
                                     type="number"
-                                    placeholder="Cantidad Disponible"
+                                    placeholder="Cantidad Disponible..."
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.existencia}
@@ -170,6 +176,29 @@ const NuevoProducto = () => {
                             ) : null  }
 
                             <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="costo">
+                                    Costo
+                                </label>
+
+                                <input
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="costo"
+                                    type="number"
+                                    placeholder="Costo del Producto..."
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    value={formik.values.costo}
+                                />
+                            </div>
+
+                            { formik.touched.costo && formik.errors.costo ? (
+                                <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4" >
+                                    <p className="font-bold">Error</p>
+                                    <p>{formik.errors.costo}</p>
+                                </div>
+                            ) : null  }
+
+                            <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="precio">
                                     Precio
                                 </label>
@@ -178,7 +207,7 @@ const NuevoProducto = () => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="precio"
                                     type="number"
-                                    placeholder="Precio Producto"
+                                    placeholder="Precio del Producto..."
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.precio}
@@ -201,7 +230,7 @@ const NuevoProducto = () => {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="codigo"
                                     type="text"
-                                    placeholder="Codigo Producto"
+                                    placeholder="Codigo del Producto..."
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.codigo}
