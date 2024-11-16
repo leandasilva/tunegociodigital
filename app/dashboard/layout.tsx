@@ -10,7 +10,7 @@ import PedidoState from '../ui/context/pedidostate';
 export default function Layout({ children }: { children: React.ReactNode }) {
 
 
-  return (
+   return (
       <ApolloProvider client={client}>
         <PedidoState>
         <div className="item-center bg-gradient-to-r from-purple-200 to-blue-100 min-h-screen flex flex-col justify-center md:flex-row md:overflow-hidden">
