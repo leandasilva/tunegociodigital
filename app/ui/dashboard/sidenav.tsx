@@ -127,7 +127,7 @@ export default function SideNav() {
     <div className="relative h-full">
       <button
         onClick={() => setShowSidebar(!showSidebar)}
-        className="fixed rounded-lg top-0 left-0 z-50 flex items-center justify-center w-10 h-10 bg-gray-800 text-white focus:outline-none md:hidden"
+        className="fixed rounded-lg top-3 left-0 z-50 flex items-center justify-center w-10 h-10 bg-gray-800 text-white focus:outline-none md:hidden"
       >
         {showSidebar ? (
           <ArrowLeftIcon className="w-6 h-6" />
