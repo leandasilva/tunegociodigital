@@ -71,7 +71,7 @@ export default function Page() {
     }
 
     // Si no hay balance previo o ya pasó un mes, permitir la creación de balance
-    if (currentDay === 1) {
+    if (currentDay === 16) {
       Swal.fire({
         title: '¿Generar nuevo balance?',
         text: 'El balance solo se puede generar una vez al mes.',
