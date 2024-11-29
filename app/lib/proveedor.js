@@ -99,7 +99,7 @@ const Proveedor = ({proveedor}) => {
             <tr>
                 <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{proveedor.empresa}</td>
                 <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{proveedor.cuit}</td>
-                <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">${proveedor.monto}</td>
+                <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">${proveedor.monto.toFixed(2)}</td>
                 <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{proveedor.telefono}</td>
                 <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
                  <TrashIcon type='button' className='w-7 h-7 ml-10 text-gray-500 cursor-pointer hover:text-gray-800' onClick={() => confirmarEliminarProveedor() }></TrashIcon>

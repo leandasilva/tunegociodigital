@@ -161,7 +161,7 @@ const Productos = () => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm); // Actualiza el término de búsqueda final después del delay
-    }, 300); // 300ms de delay
+    }, 200); // 300ms de delay
 
     return () => {
       clearTimeout(handler); // Limpia el temporizador si el usuario sigue escribiendo

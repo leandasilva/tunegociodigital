@@ -101,7 +101,7 @@ const Cliente = ({cliente}) => {
                 <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{cliente.email}</td>
                 <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{cliente.telefono}</td>
                 <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{cliente.dni}</td>
-                <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">$ {cliente.totalGral}</td>
+                <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">$ {cliente.totalGral.toFixed(2)}</td>
                 <td className="whitespace-nowrap text-center bg-white px-4 py-5 text-sm">{cliente.estado}</td>
                 <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
                  <TrashIcon type='button' className='w-7 h-7 ml-6 text-gray-500 cursor-pointer hover:text-gray-800' onClick={() => confirmarEliminarCliente() }></TrashIcon>

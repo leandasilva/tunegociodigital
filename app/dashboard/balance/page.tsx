@@ -148,7 +148,11 @@ const Balance: React.FC = () => {
     cantidad: producto.cantidadTotal,
   }));
   return (
+<<<<<<< HEAD
     <div className="p-5 bg-gray-100">
+=======
+     <div className="p-5 bg-gray-100">
+>>>>>>> 5982e44 (se actualizo)
   {/* Stats Section */}
   <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
     <div className="bg-white p-5 text-center rounded-lg shadow">
@@ -172,7 +176,10 @@ const Balance: React.FC = () => {
       <p className="text-sm sm:text-base">Cant de venta mensual</p>
     </div>
   </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5982e44 (se actualizo)
 
     {/* Gráfico de Balance con scroll horizontal */}
 <div className="bg-white p-5 rounded-lg shadow mb-6 overflow-x-auto">
