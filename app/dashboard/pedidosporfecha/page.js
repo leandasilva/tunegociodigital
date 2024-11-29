@@ -27,8 +27,8 @@ const OBTENER_PEDIDOS = gql`
     user
     creado
   }
-}
-`;
+}`
+;
 
 const styles = StyleSheet.create({
   page: {

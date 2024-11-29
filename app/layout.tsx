@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
    <ApolloProvider client={client}>
     <html lang="en">
-        <title>Tu Neg Dig</title>
+        <title>TuNegDig</title>
       <body>
       <Navbar></Navbar>
         {children}

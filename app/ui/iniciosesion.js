@@ -335,7 +335,7 @@ const Login = () => {
               <div className="mt-6 text-center">
                 <p>
                   Olvidaste la contraseña?{" "}
-                  <Link href="/auth/signup" className="text-primary">
+                  <Link href="/" className="text-primary">
                     Contactate
                   </Link>
                 </p>
